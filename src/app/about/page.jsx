@@ -1,9 +1,10 @@
 import Image from "next/image"
+import Contact from "@/app/components/contact"
 
 export default function AboutPage() {
   return (
     <section className="bg-[#1F1F1F] text-white py-16 md:py-24">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-2">
         {/* Hero Section for About */}
         <div className="text-center mb-16">
           <h1 className="text-4xl sm:text-5xl md:text-6xl  text-white mb-4">About Us</h1>
@@ -97,6 +98,7 @@ export default function AboutPage() {
           <p className="text-md text-gray-400 mt-2">With love and gratitude, Fragrance Perfumes Team</p>
         </div>
       </div>
+       <Contact/>
     </section>
   )
 }

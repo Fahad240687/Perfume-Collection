@@ -16,7 +16,8 @@ export default function OurCollections() {
       id: 1,
       image: "/images/Collection/collection6.png",
       title: "Designer Delights Collection",
-      description: "Exquisite fragrances crafted for the discerning individual.",
+      description:
+        "Exquisite fragrances crafted for the discerning individual.",
       link: "/shop/designer-delights",
       specialClass: "object-contain",
     },
@@ -49,9 +50,23 @@ export default function OurCollections() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <h2
-          className={`text-3xl sm:text-5xl text-center text-white mb-10 md:mb-16 transition-all duration-1000 ease-out ${
-            animateHeading ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
-          }`}
+          className={`
+    max-w-3xl mx-auto
+    text-4xl sm:text-5xl
+    font-serif font-extrabold
+    text-center text-[#DAB060]
+    tracking-wide
+    mb-10 md:mb-16
+    transition-all duration-700 ease-out
+    cursor-default
+    select-none
+    ${
+      animateHeading ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
+    }
+    hover:text-[#E6C16A]
+    hover:scale-105
+    hover:drop-shadow-lg
+  `}
         >
           Our Collections
         </h2>
@@ -76,7 +91,9 @@ export default function OurCollections() {
                   alt={collection.title}
                   fill
                   className={`transition duration-500 ${
-                    collection.specialClass ? collection.specialClass : "object-cover"
+                    collection.specialClass
+                      ? collection.specialClass
+                      : "object-cover"
                   }`}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority={index < 2}

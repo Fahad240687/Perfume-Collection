@@ -22,14 +22,14 @@ export default function Navbar() {
     { label: "Tester", href: "/shop/tester" },
     { label: "Gift Set", href: "/shop/gift-set" },
     { label: "Luxury Fragrance", href: "/shop/luxury-fragrance" },
-    { label: "Customize Gift Box", href: "/shop/customize-gift-box" },
-    { label: "Arabic Collection", href: "/shop/arabic-collection" },
+    { label: "Customize Gift Box", href: "/shop/costomize-gift-box" },
+    { label: "Arabic Collection", href: "/shop/arabic-collection" }, // New Arabic Collection link
   ]
 
   return (
     <nav className="bg-[#CE9F56] sticky top-0 z-50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
@@ -60,7 +60,15 @@ export default function Navbar() {
           <div className="hidden md:flex items-center justify-center flex-1">
             <div className="flex items-center space-x-8">
               {/* Shop Dropdown */}
+                <Link
+              href="/"
+              className="text-white  hover:text-amber-200  block px-3 py-2 rounded-md text-base font-medium"
+              onClick={() => setIsOpen(false)}
+            >
+              Home
+            </Link>
               <div className="relative">
+                
                 <button
                   onClick={toggleDropdown}
                   className="text-white hover:text-amber-200 px-3 py-2 text-sm font-medium flex items-center transition-colors duration-200"
@@ -82,13 +90,13 @@ export default function Navbar() {
 
                 {/* Dropdown Menu */}
                 {showDropdown && (
-                  <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                  <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-[#DAB060] ring-1 ring-[#B67D43] ring-opacity-5 z-50">
                     <div className="py-1" role="menu" aria-orientation="vertical">
                       {shopItems.map((item) => (
                         <Link
                           key={item.href}
                           href={item.href}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-amber-100 hover:text-amber-800"
+                          className="block px-4 py-2 text-sm text-gray-100 hover:bg-amber-100 hover:text-amber-800"
                           role="menuitem"
                           onClick={() => setShowDropdown(false)}
                         >
@@ -215,9 +223,17 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-amber-700">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-[#DAB060]">
+             <Link
+              href="/"
+              className="text-white  hover:text-amber-200  block px-3 py-2 rounded-md text-base font-medium"
+              onClick={() => setIsOpen(false)}
+            >
+              Home
+            </Link>
             {/* Shop Dropdown - Mobile */}
             <div>
+               
               <button
                 onClick={toggleDropdown}
                 className="w-full flex justify-between items-center text-white hover:bg-amber-800 hover:text-white px-3 py-2 rounded-md text-base font-medium"
