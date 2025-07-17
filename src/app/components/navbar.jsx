@@ -2,10 +2,14 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useCart } from "@/app/context/cart-context" // Import useCart
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
+    const { cartItems } = useCart() // Get cartItems from context
+
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
@@ -127,9 +131,9 @@ export default function Navbar() {
           </div>
 
           {/* Desktop - Right Icons */}
-          <div className="hidden md:flex items-center space-x-4">
+           <div className="hidden md:flex items-center space-x-4">
             {/* Cart Icon */}
-            <Link href="/cart" className="text-white hover:text-amber-200 transition-colors duration-200">
+            <Link href="/cart" className="relative text-white hover:text-amber-200 transition-colors duration-200">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -144,6 +148,11 @@ export default function Navbar() {
                 <circle cx="20" cy="21" r="1"></circle>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
               </svg>
+              {cartItems.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  {cartItems.length}
+                </span>
+              )}
             </Link>
 
             {/* Heart/Favorite Icon */}
@@ -162,7 +171,6 @@ export default function Navbar() {
               </svg>
             </Link>
           </div>
-
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-4">
             {/* Cart Icon - Mobile */}

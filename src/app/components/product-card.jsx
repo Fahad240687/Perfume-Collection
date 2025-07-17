@@ -56,11 +56,11 @@ export default function ProductCard({ product }) {
     <p className="text-[#E6C16A] text-sm">
       <span className="text-[#C28E4D] font-bold">${product.price.toFixed(2)}</span> {product.volume}
     </p>
-    <Link href={`/products/${product.id}`} className="mt-2">
-      <button className="bg-[#B67D43] hover:bg-[#DAB060] text-black px-4 py-1 rounded-md text-sm font-medium transition-colors">
-        Buy Now
-      </button>
-    </Link>
+     <Link href={`/products/${product.id}`} className="mt-2">
+          <button className="bg-[#B67D43] hover:bg-[#DAB060] text-black px-4 py-1 rounded-md text-sm font-medium transition-colors">
+            Buy Now
+          </button>
+        </Link>
   </div>
 </div>
 

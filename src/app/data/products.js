@@ -163,7 +163,7 @@ export const productCategories = [
 //Attar Collection
  {
   id: "attar",
-  name: "Attars",
+  name: "Attar Collection",
   products: [
     {
       id: "attar-1",
@@ -323,7 +323,7 @@ export const productCategories = [
 
  {
   id: "costomize-gift-box",
-  name: "costomize-Gift-Box",
+  name: "Costomize Gift Box",
   products: [
     {
       id: "costomize-gift-box-1",

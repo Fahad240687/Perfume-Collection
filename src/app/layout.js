@@ -1,6 +1,7 @@
 import "./globals.css"
 import Navbar from "@/app/components/navbar"
-import Footer from "@/app/components/footer" // Import the new Footer component
+import Footer from "@/app/components/footer"
+import { CartProvider } from "@/app/context/cart-context" 
 
 
 export const metadata = {
@@ -12,9 +13,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-gray-50">
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-          <Footer /> 
+        <CartProvider>
+          {" "}
+          {/* Wrap children with CartProvider */}
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   )
