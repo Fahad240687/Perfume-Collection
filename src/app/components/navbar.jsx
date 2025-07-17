@@ -92,24 +92,27 @@ export default function Navbar() {
                   </svg>
                 </button>
 
-                {/* Dropdown Menu */}
-                {showDropdown && (
-                  <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-[#DAB060] ring-1 ring-[#B67D43] ring-opacity-5 z-50">
-                    <div className="py-1" role="menu" aria-orientation="vertical">
-                      {shopItems.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className="block px-4 py-2 text-sm text-gray-100 hover:bg-amber-100 hover:text-amber-800"
-                          role="menuitem"
-                          onClick={() => setShowDropdown(false)}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
+              {/* Dropdown Menu */}
+{showDropdown && (
+  <div
+    className="absolute left-0 mt-2 w-56 rounded-xl shadow-xl bg-[#2C2C2C] border border-[#DAB060] z-50 animate-fade-in"
+  >
+    <div className="py-2" role="menu" aria-orientation="vertical">
+      {shopItems.map((item) => (
+        <Link
+          key={item.href}
+          href={item.href}
+          onClick={() => setShowDropdown(false)}
+          role="menuitem"
+          className="block px-5 py-2 text-sm text-white hover:bg-[#DAB060] hover:text-black transition-all duration-200 ease-in-out rounded-md mx-2"
+        >
+          {item.label}
+        </Link>
+      ))}
+    </div>
+  </div>
+)}
+
               </div>
 
               {/* About */}

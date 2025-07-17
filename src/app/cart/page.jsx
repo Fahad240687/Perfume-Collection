@@ -4,13 +4,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/app/context/cart-context";
 import { FaTimesCircle, FaChevronUp, FaChevronDown } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { FaArrowLeft } from "react-icons/fa"; // Add this if not imported
 
 export default function CartPage() {
   const { cartItems, removeFromCart, updateQuantity, cartTotal } = useCart();
+  const router = useRouter();
 
   return (
     <div className="bg-[#1F1F1F] text-white min-h-screen py-12 px-4">
       <div className="max-w-6xl mx-auto">
+        <button
+          onClick={() => router.back()}
+          className="flex items-center text-white  font-medium mb-6 transition"
+        >
+          <FaArrowLeft className="mr-2" />
+          Back
+        </button>
+
         <h1 className="text-3xl sm:text-4xl font-bold text-center mb-10">
           Your Shopping Cart
         </h1>
@@ -28,7 +39,7 @@ export default function CartPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
             {/* Cart Items */}
             <div className=" lg:col-span-2 bg-gray-50  rounded-lg p-4 sm:p-8 shadow-md overflow-hidden text-gray-800">
-              <div className="hidden md:grid grid-cols-5 gap-4 pb-4 border-b font-semibold">
+              <div className="hidden md:grid grid-cols-5 gap-4 pb-2 border-b font-semibold ">
                 <div className="col-span-2">Product</div>
                 <div>Price</div>
                 <div>Qty</div>
@@ -136,7 +147,7 @@ export default function CartPage() {
               <Link href="/checkout">
                 {" "}
                 {/* Link to checkout page */}
-                <button className="w-full bg-amber-600 hover:bg-amber-700 text-black font-semibold py-3 rounded-md transition-colors">
+                <button className="w-full bg-[#DAB060] hover:bg-[#C28E4D]  text-black font-semibold py-3 rounded-md transition-colors">
                   Proceed to checkout
                 </button>
               </Link>

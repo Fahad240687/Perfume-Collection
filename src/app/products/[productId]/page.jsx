@@ -6,6 +6,8 @@ import Image from "next/image";
 import { FaStar, FaRegStar, FaHeart, FaMinus, FaPlus } from "react-icons/fa";
 import { productCategories } from "@/app/data/products";
 import { useCart } from "@/app/context/cart-context" // Import useCart
+import Link from "next/link";
+import { FaShoppingCart, FaCreditCard } from "react-icons/fa" // <-- Import at top
 
 
 export default function ProductDetailPage({ params }) {
@@ -155,17 +157,22 @@ export default function ProductDetailPage({ params }) {
 
             {/* Buttons */}
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="flex-1 bg-amber-600 hover:bg-amber-700 text-black font-semibold py-3 rounded-md transition-colors">
-                Check Out
-              </button>
-              <button
-                onClick={handleOrderNow} // Call handleOrderNow on click
-                className="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 rounded-md transition-colors"
-              >
-                Order Now
-              </button>
-            </div>
+        <div className="flex flex-col sm:flex-row gap-4">
+  <Link href="/checkout" className="flex-1">
+    <button className="w-full flex items-center justify-center gap-2 bg-[#DAB060] hover:bg-[#C28E4D]  text-black font-semibold py-3 rounded-md transition-colors">
+      <FaCreditCard className="text-lg" />
+      Check Out
+    </button>
+  </Link>
+
+  <button
+    onClick={handleOrderNow}
+    className="flex-1 w-full flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 rounded-md transition-colors"
+  >
+    <FaShoppingCart className="text-lg" />
+    Add to Cart
+  </button>
+</div>
           </div>
         </div>
 
