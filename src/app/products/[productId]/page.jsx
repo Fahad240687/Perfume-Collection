@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, notFound } from "next/navigation";
-import { useState } from "react";
+import { useState, use } from "react";
 import Image from "next/image";
 import { FaStar, FaRegStar, FaHeart, FaMinus, FaPlus } from "react-icons/fa";
 import { productCategories } from "@/app/data/products";
@@ -12,7 +12,7 @@ import { FaShoppingCart, FaCreditCard } from "react-icons/fa" // <-- Import at t
 
 export default function ProductDetailPage({ params }) {
   const router = useRouter();
-   const { productId } = params; // ✅ allowed in current  const { addToCart } = useCart() // Use the addToCart function
+  const { productId } = use(params);
   const { addToCart } = useCart() // Use the addToCart function
 
   const [quantity, setQuantity] = useState(1);
@@ -52,9 +52,7 @@ export default function ProductDetailPage({ params }) {
       )
     );
 
-  // Placeholder data for volume options and key notes
-
-
+  
   const keyNotes = [
     {
       title: "Top Note",
@@ -73,10 +71,10 @@ export default function ProductDetailPage({ params }) {
     },
   ]
 
- return (
-    <div className="bg-[#1F1F1F] text-white min-h-screen pb-16">
+  return (
+    <div className="bg-[#1F1F1F] text-white min-h-screen pb-16 ">
       {/* Top Golden Border */}
-      <div className="absolute top-0 left-0 w-full h-2 bg-amber-600"></div>
+      <div className="absolute top-0 left-0 w-full h-2 "></div>
 
       {/* Back Button */}
       <button
@@ -100,6 +98,7 @@ export default function ProductDetailPage({ params }) {
       </button>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32">
+        {/* Main Product Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left: Product Image */}
           <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] flex items-center justify-center">
@@ -110,14 +109,15 @@ export default function ProductDetailPage({ params }) {
               className="object-contain"
               priority
             />
+            {/* Image Indicators */}
             <div className="absolute bottom-4 flex space-x-2">
               <span className="w-2 h-2 bg-white rounded-full"></span>
               <span className="w-2 h-2 bg-gray-500 rounded-full"></span>
             </div>
           </div>
 
-          {/* Right: Product Info */}
-          <div className="p-6 md:p-8 space-y-6">
+          {/* Right: Product Details */}
+          <div className=" p-6 md:p-8 space-y-6">
             <h1 className="text-3xl md:text-4xl font-bold text-white">{product.name}</h1>
             <p className="text-gray-300 text-sm leading-relaxed">{product.description}</p>
 
@@ -127,11 +127,12 @@ export default function ProductDetailPage({ params }) {
               <span className="text-gray-400 text-sm">({product.reviews})</span>
             </div>
 
-            {/* Total Price */}
-            <p className="text-white text-3xl font-bold">${totalPrice.toFixed(2)}</p>
+          
+            {/* Price */}
+            <p className="text-white text-3xl font-bold">${product.price.toFixed(2)}</p>
 
             {/* Quantity & Wishlist */}
-            <div className="flex items-center justify-between border-blue-500 p-4">
+            <div className="flex items-center justify-between p-4">
               <div className="flex items-center gap-4">
                 <span className="text-gray-300">Qty</span>
                 <div className="flex items-center border border-gray-600 rounded-md">
@@ -155,33 +156,44 @@ export default function ProductDetailPage({ params }) {
               </button>
             </div>
 
-            {/* Buttons */}
             {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4">
-  <Link href="/checkout" className="flex-1">
-    <button className="w-full flex items-center justify-center gap-2 bg-[#DAB060] hover:bg-[#C28E4D]  text-black font-semibold py-3 rounded-md transition-colors">
-      <FaCreditCard className="text-lg" />
-      Check Out
-    </button>
-  </Link>
-
-  <button
-    onClick={handleOrderNow}
-    className="flex-1 w-full flex items-center justify-center gap-2 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 rounded-md transition-colors"
-  >
-    <FaShoppingCart className="text-lg" />
-    Add to Cart
-  </button>
-</div>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="flex-1 bg-[#DAB060] hover:bg-[#C28E4D] text-black font-semibold py-3 rounded-md transition-colors">
+                Check Out
+              </button>
+              <button
+                onClick={handleOrderNow}
+                className="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 rounded-md transition-colors"
+              >
+                Order Now
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Product Details */}
+        {/* Product Details Sections */}
         <div className="mt-16 md:mt-24 space-y-12">
+          {/* Product Details */}
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Product Details</h2>
             <p className="text-gray-300 leading-relaxed">
-              Step into a world of unparalleled opulence with Luxurious Elixir...
+              Step into a world of unparalleled opulence with Luxurious Elixir, an exquisite fragrance that weaves an
+              enchanting symphony of gold and luxury. This gilded elixir is a celebration of sophistication, crafted
+              with the finest essences and imbued with the allure of precious golden hues. From the first spritz to the
+              lingering dry-down, Luxurious Elixir promises an intoxicating experience that embodies the essence of
+              lavish indulgence.
+            </p>
+          </div>
+
+          {/* The Golden Overture */}
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">The Golden Overture</h2>
+            <p className="text-gray-300 leading-relaxed">
+              Luxurious Elixir opens with a grand flourish of radiant citrus and sun-kissed fruits, reminiscent of
+              golden rays caressing your senses. The opulent heart unfolds with a bouquet of velvety roses and rare
+              blooms, their essence radiating with the allure of gilded petals. As the fragrance settles, a sumptuous
+              blend of warm amber, creamy vanilla, and smooth sandalwood evokes a sense of ultimate luxury and
+              refinement.
             </p>
           </div>
 
@@ -192,12 +204,7 @@ export default function ProductDetailPage({ params }) {
               {keyNotes.map((note, index) => (
                 <div key={index} className="flex flex-col items-center">
                   <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4">
-                    <Image
-                      src={note.image || "/placeholder.svg"}
-                      alt={note.title}
-                      fill
-                      className="object-cover"
-                    />
+                    <Image src={note.image || "/placeholder.svg"} alt={note.title} fill className="object-cover" />
                   </div>
                   <h3 className="text-lg font-semibold text-white mb-1">{note.title}</h3>
                   <p className="text-gray-300 text-sm">{note.description}</p>
@@ -205,8 +212,27 @@ export default function ProductDetailPage({ params }) {
               ))}
             </div>
           </div>
+
+          {/* The Heart of Elegance */}
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">The Heart of Elegance</h2>
+            <p className="text-gray-300 leading-relaxed">
+              Luxurious Elixir is the embodiment of elegance, drawing you into a world where glamour and prestige unite.
+              With every spritz, the fragrance weaves a tapestry of glistening gold around you, enhancing your allure
+              and capturing the admiration of those around.
+            </p>
+          </div>
+
+          {/* The Ultimate Expression of Luxury */}
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">The Ultimate Expression of Luxury</h2>
+            <p className="text-gray-300 leading-relaxed">
+              Luxurious Elixir makes an extraordinary gift, an expression of your discerning taste and admiration for
+              the extraordinary. Delight your loved ones with this lavish elixir, a symbol of admiration and adoration.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

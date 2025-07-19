@@ -6,6 +6,7 @@ const CartContext = createContext(null)
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([])
+  const [isCartPopupOpen, setIsCartPopupOpen] = useState(false)
 
   // Load cart from localStorage on initial mount
   useEffect(() => {
@@ -34,6 +35,8 @@ export function CartProvider({ children }) {
         return [...prevItems, { product, quantity }]
       }
     })
+    // Show cart popup when item is added
+    setIsCartPopupOpen(true)
   }, [])
 
   const removeFromCart = useCallback((productId) => {
@@ -53,10 +56,29 @@ export function CartProvider({ children }) {
     return { subtotal, shipping, total }
   }, [cartItems])
 
+  const openCartPopup = useCallback(() => {
+    setIsCartPopupOpen(true)
+  }, [])
+
+  const closeCartPopup = useCallback(() => {
+    setIsCartPopupOpen(false)
+  }, [])
+
   const cartTotal = calculateCartTotal()
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, cartTotal }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        cartTotal,
+        isCartPopupOpen,
+        openCartPopup,
+        closeCartPopup,
+      }}
+    >
       {children}
     </CartContext.Provider>
   )

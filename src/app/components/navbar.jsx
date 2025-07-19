@@ -8,8 +8,7 @@ import { useCart } from "@/app/context/cart-context" // Import useCart
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
-    const { cartItems } = useCart() // Get cartItems from context
-
+  const { cartItems, openCartPopup } = useCart()
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
@@ -134,9 +133,12 @@ export default function Navbar() {
           </div>
 
           {/* Desktop - Right Icons */}
-           <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
             {/* Cart Icon */}
-            <Link href="/cart" className="relative text-white hover:text-amber-200 transition-colors duration-200">
+            <button
+              onClick={openCartPopup}
+              className="relative text-white hover:text-amber-200 transition-colors duration-200 p-2"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -152,14 +154,14 @@ export default function Navbar() {
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
               </svg>
               {cartItems.length > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center px-1 font-medium">
                   {cartItems.length}
                 </span>
               )}
-            </Link>
+            </button>
 
             {/* Heart/Favorite Icon */}
-            <Link href="/favorites" className="text-white hover:text-amber-200 transition-colors duration-200">
+            <Link href="/favorites" className="text-white hover:text-amber-200 transition-colors duration-200 p-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -174,10 +176,14 @@ export default function Navbar() {
               </svg>
             </Link>
           </div>
+
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-4">
             {/* Cart Icon - Mobile */}
-            <Link href="/cart" className="text-white hover:text-amber-200 transition-colors duration-200">
+            <button
+              onClick={openCartPopup}
+              className="relative text-white hover:text-amber-200 transition-colors duration-200 p-2"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -192,10 +198,15 @@ export default function Navbar() {
                 <circle cx="20" cy="21" r="1"></circle>
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
               </svg>
-            </Link>
+              {cartItems.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center px-1 font-medium z-10">
+                  {cartItems.length}
+                </span>
+              )}
+            </button>
 
             {/* Heart/Favorite Icon - Mobile */}
-            <Link href="/favorites" className="text-white hover:text-amber-200 transition-colors duration-200">
+            <Link href="/favorites" className="text-white hover:text-amber-200 transition-colors duration-200 p-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -216,12 +227,10 @@ export default function Navbar() {
               className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-amber-200 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition-colors duration-200"
             >
               {isOpen ? (
-                // X icon
                 <svg className="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                // Menu icon
                 <svg className="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -230,7 +239,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden">
