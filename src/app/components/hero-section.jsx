@@ -49,31 +49,32 @@ export default function HeroSection() {
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-[#1F1F1F]"></div>
 
-      {/* Water Splash - Left (Desktop Only) */}
-      <div className="absolute left-0 bottom-0 w-[30%] h-[60%] hidden md:block">
-        <div className="relative w-full h-full">
-          <Image
-            src="/images/waterfell.png"
-            alt="Water Splash Left"
-            fill
-            className="object-contain object-left-bottom opacity-80"
-            priority
-          />
-        </div>
-      </div>
+     {/* Water Splash - Left (Desktop Only) */}
+<div className="absolute left-0 bottom-[-120px] w-[30%] h-[70%] hidden md:block">
+  <div className="relative w-full h-full rotate-[25deg]">
+    <Image
+      src="/images/waterfell.png"
+      alt="Water Splash Left"
+      fill
+      className="object-contain object-left-bottom opacity-80"
+      priority
+    />
+  </div>
+</div>
 
-      {/* Water Splash - Right (Desktop Only) */}
-      <div className="absolute right-0 bottom-0 w-[30%] h-[60%] hidden md:block">
-        <div className="relative w-full h-full">
-          <Image
-            src="/images/waterfell.png"
-            alt="Water Splash Right"
-            fill
-            className="object-contain object-right-bottom opacity-80 scale-x-[-1]"
-            priority
-          />
-        </div>
-      </div>
+{/* Water Splash - Right (Desktop Only) */}
+<div className="absolute right-0 bottom-[-120px] w-[30%] h-[70%] hidden md:block">
+  <div className="relative w-full h-full rotate-[-25deg]">
+    <Image
+      src="/images/waterfell.png"
+      alt="Water Splash Right"
+      fill
+      className="object-contain object-right-bottom opacity-80 scale-x-[-1]"
+      priority
+    />
+  </div>
+</div>
+
 
       {/* Main Content */}
       <div className="relative z-10 text-center px-4 sm:px-8 lg:px-16 max-w-5xl mx-auto">
