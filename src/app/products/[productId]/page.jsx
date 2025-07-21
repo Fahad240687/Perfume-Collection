@@ -1,37 +1,54 @@
-"use client";
+"use client"
 
-import { useRouter, notFound } from "next/navigation";
-import { useState, use } from "react";
-import Image from "next/image";
-import { FaStar, FaRegStar, FaHeart, FaMinus, FaPlus } from "react-icons/fa";
-import { productCategories } from "@/app/data/products";
-import { useCart } from "@/app/context/cart-context" // Import useCart
-import Link from "next/link";
-import { FaShoppingCart, FaCreditCard } from "react-icons/fa" // <-- Import at top
-
+import Image from "next/image"
+import { notFound, useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import { FaStar, FaRegStar, FaHeart, FaMinus, FaPlus } from "react-icons/fa"
+import { useCart } from "@/app/context/cart-context"
 
 export default function ProductDetailPage({ params }) {
-  const router = useRouter();
-  const { productId } = use(params);
-  const { addToCart } = useCart() // Use the addToCart function
+  const router = useRouter()
+  const { productId } = params
+  const { addToCart } = useCart()
+  const [product, setProduct] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [quantity, setQuantity] = useState(1)
 
-  const [quantity, setQuantity] = useState(1);
+  useEffect(() => {
+    fetchProduct()
+  }, [productId])
 
-  // Find product
-    // Find the product across all categories
-  let product = null
-  for (const category of productCategories) {
-    product = category.products.find((p) => p.id === productId)
-    if (product) break
+  const fetchProduct = async () => {
+    try {
+      const response = await fetch(`/api/products/${productId}`)
+      const data = await response.json()
+
+      if (data.success) {
+        setProduct(data.product)
+      } else {
+        notFound()
+      }
+    } catch (error) {
+      console.error("Error fetching product:", error)
+      notFound()
+    } finally {
+      setLoading(false)
+    }
   }
 
-  if (!product) {
-    notFound()
+  const renderStars = (rating) => {
+    const stars = []
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<FaStar key={i} className="text-amber-400" />)
+      } else {
+        stars.push(<FaRegStar key={i} className="text-gray-500" />)
+      }
+    }
+    return stars
   }
 
-  const totalPrice = product.price * quantity;
-
-   const handleQuantityChange = (type) => {
+  const handleQuantityChange = (type) => {
     if (type === "increment") {
       setQuantity((prev) => prev + 1)
     } else if (type === "decrement" && quantity > 1) {
@@ -41,40 +58,50 @@ export default function ProductDetailPage({ params }) {
 
   const handleOrderNow = () => {
     addToCart(product, quantity)
-   
   }
-  const renderStars = (rating) =>
-    [...Array(5)].map((_, i) =>
-      i < rating ? (
-        <FaStar key={i} className="text-amber-400" />
-      ) : (
-        <FaRegStar key={i} className="text-gray-500" />
-      )
-    );
 
-  
+  if (loading) {
+    return (
+      <div className="bg-[#1F1F1F] text-white min-h-screen flex items-center justify-center">
+        <div className="text-xl">Loading product...</div>
+      </div>
+    )
+  }
+
+  if (!product) {
+    notFound()
+  }
+
+  // Placeholder data for volume options and key notes
+  const volumeOptions = [
+    { id: "100ml", label: "100 ml", image: "/images/product-details/luxurious-elixir-100ml.png" },
+    { id: "50ml", label: "50 ml", image: "/images/product-details/luxurious-elixir-50ml.png" },
+    { id: "10ml", label: "10 ml", image: "/images/product-details/luxurious-elixir-10ml.png" },
+    { id: "5ml-tester", label: "5 ml Tester", image: "/images/product-details/luxurious-elixir-5ml-tester.png" },
+  ]
+
   const keyNotes = [
     {
       title: "Top Note",
       description: "Citrus Accord, Sun-kissed fruits",
-      image: "/images/Key-Notes/1.png",
+      image: "/images/product-details/key-notes-top.png",
     },
     {
       title: "Heart Note",
       description: "Golden Roses, Rare Blooms",
-      image: "/images/Key-Notes/2.jpg",
+      image: "/images/product-details/key-notes-heart.png",
     },
     {
       title: "Base Note",
       description: "Amber, Vanilla, Sandalwood",
-      image: "/images/Key-Notes/3.jpg",
+      image: "/images/product-details/key-notes-base.png",
     },
   ]
 
   return (
-    <div className="bg-[#1F1F1F] text-white min-h-screen pb-16 ">
+    <div className="bg-[#1F1F1F] text-white min-h-screen pb-16">
       {/* Top Golden Border */}
-      <div className="absolute top-0 left-0 w-full h-2 "></div>
+      <div className="absolute top-0 left-0 w-full h-2 bg-amber-600"></div>
 
       {/* Back Button */}
       <button
@@ -117,7 +144,7 @@ export default function ProductDetailPage({ params }) {
           </div>
 
           {/* Right: Product Details */}
-          <div className=" p-6 md:p-8 space-y-6">
+          <div className="border border-dashed border-blue-500 p-6 md:p-8 space-y-6">
             <h1 className="text-3xl md:text-4xl font-bold text-white">{product.name}</h1>
             <p className="text-gray-300 text-sm leading-relaxed">{product.description}</p>
 
@@ -127,12 +154,30 @@ export default function ProductDetailPage({ params }) {
               <span className="text-gray-400 text-sm">({product.reviews})</span>
             </div>
 
-          
+            {/* Volume Options */}
+            <div className="border border-dashed border-blue-500 p-4 space-y-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {volumeOptions.map((option) => (
+                  <div key={option.id} className="flex flex-col items-center text-center">
+                    <div className="relative w-16 h-16 mb-2 border border-gray-600 rounded-md overflow-hidden">
+                      <Image
+                        src={option.image || "/placeholder.svg"}
+                        alt={option.label}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <span className="text-gray-300 text-xs">{option.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Price */}
             <p className="text-white text-3xl font-bold">${product.price.toFixed(2)}</p>
 
             {/* Quantity & Wishlist */}
-            <div className="flex items-center justify-between p-4">
+            <div className="flex items-center justify-between border border-dashed border-blue-500 p-4">
               <div className="flex items-center gap-4">
                 <span className="text-gray-300">Qty</span>
                 <div className="flex items-center border border-gray-600 rounded-md">
@@ -158,7 +203,7 @@ export default function ProductDetailPage({ params }) {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="flex-1 bg-[#DAB060] hover:bg-[#C28E4D] text-black font-semibold py-3 rounded-md transition-colors">
+              <button className="flex-1 bg-amber-600 hover:bg-amber-700 text-black font-semibold py-3 rounded-md transition-colors">
                 Check Out
               </button>
               <button
@@ -176,25 +221,7 @@ export default function ProductDetailPage({ params }) {
           {/* Product Details */}
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Product Details</h2>
-            <p className="text-gray-300 leading-relaxed">
-              Step into a world of unparalleled opulence with Luxurious Elixir, an exquisite fragrance that weaves an
-              enchanting symphony of gold and luxury. This gilded elixir is a celebration of sophistication, crafted
-              with the finest essences and imbued with the allure of precious golden hues. From the first spritz to the
-              lingering dry-down, Luxurious Elixir promises an intoxicating experience that embodies the essence of
-              lavish indulgence.
-            </p>
-          </div>
-
-          {/* The Golden Overture */}
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">The Golden Overture</h2>
-            <p className="text-gray-300 leading-relaxed">
-              Luxurious Elixir opens with a grand flourish of radiant citrus and sun-kissed fruits, reminiscent of
-              golden rays caressing your senses. The opulent heart unfolds with a bouquet of velvety roses and rare
-              blooms, their essence radiating with the allure of gilded petals. As the fragrance settles, a sumptuous
-              blend of warm amber, creamy vanilla, and smooth sandalwood evokes a sense of ultimate luxury and
-              refinement.
-            </p>
+            <p className="text-gray-300 leading-relaxed">{product.description}</p>
           </div>
 
           {/* Key Notes */}
@@ -211,25 +238,6 @@ export default function ProductDetailPage({ params }) {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* The Heart of Elegance */}
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">The Heart of Elegance</h2>
-            <p className="text-gray-300 leading-relaxed">
-              Luxurious Elixir is the embodiment of elegance, drawing you into a world where glamour and prestige unite.
-              With every spritz, the fragrance weaves a tapestry of glistening gold around you, enhancing your allure
-              and capturing the admiration of those around.
-            </p>
-          </div>
-
-          {/* The Ultimate Expression of Luxury */}
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">The Ultimate Expression of Luxury</h2>
-            <p className="text-gray-300 leading-relaxed">
-              Luxurious Elixir makes an extraordinary gift, an expression of your discerning taste and admiration for
-              the extraordinary. Delight your loved ones with this lavish elixir, a symbol of admiration and adoration.
-            </p>
           </div>
         </div>
       </div>

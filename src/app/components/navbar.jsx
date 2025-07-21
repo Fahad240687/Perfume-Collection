@@ -18,15 +18,14 @@ export default function Navbar() {
     setShowDropdown(!showDropdown)
   }
 
-  // Shop dropdown items
-  const shopItems = [
+const shopItems = [
     { label: "Perfume", href: "/shop/perfume" },
     { label: "Attar", href: "/shop/attar" },
     { label: "Tester", href: "/shop/tester" },
+    { label: "Luxury Fragrance", href: "/shop/luxury-fragnance" },
     { label: "Gift Set", href: "/shop/gift-set" },
-    { label: "Luxury Fragrance", href: "/shop/luxury-fragrance" },
-    { label: "Customize Gift Box", href: "/shop/costomize-gift-box" },
-    { label: "Arabic Collection", href: "/shop/arabic-collection" }, // New Arabic Collection link
+    { label: "Customize Gift Box", href: "/shop/costumize-gift-box" },
+    { label: "Arabic Collection", href: "/shop/arabic-collection" },
   ]
 
   return (

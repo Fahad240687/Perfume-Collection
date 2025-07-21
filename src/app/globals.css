@@ -61,3 +61,18 @@ html {
 .animate-infinite-scroll {
   animation: infinite-scroll 20s linear infinite;
 }
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
+  z-index: 0;
+}
+
+/* Mobile-only overflow fix */
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden !important;
+  }
+}

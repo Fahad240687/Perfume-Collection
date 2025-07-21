@@ -45,39 +45,39 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative h-[85vh] sm:h-[90vh] overflow-hidden flex items-center justify-center">
+    <section className="relative h-[55vh] sm:h-[78vh] overflow-hidden flex items-center justify-center mt-4">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-[#1F1F1F]"></div>
 
-     {/* Water Splash - Left (Desktop Only) */}
-<div className="absolute left-0 bottom-[-120px] w-[30%] h-[70%] hidden md:block">
-  <div className="relative w-full h-full rotate-[25deg]">
-    <Image
-      src="/images/waterfell.png"
-      alt="Water Splash Left"
-      fill
-      className="object-contain object-left-bottom opacity-80"
-      priority
-    />
-  </div>
-</div>
+      {/* Water Splash - Left (Desktop Only) */}
+      <div className="absolute left-0 bottom-[-120px] w-[30%] h-[70%] hidden md:block">
+        <div className="relative w-full h-full rotate-[25deg]">
+          <Image
+            src="/images/waterfell.png"
+            alt="Water Splash Left"
+            fill
+            className="object-contain object-left-bottom opacity-80"
+            priority
+          />
+        </div>
+      </div>
 
-{/* Water Splash - Right (Desktop Only) */}
-<div className="absolute right-0 bottom-[-120px] w-[30%] h-[70%] hidden md:block">
-  <div className="relative w-full h-full rotate-[-25deg]">
-    <Image
-      src="/images/waterfell.png"
-      alt="Water Splash Right"
-      fill
-      className="object-contain object-right-bottom opacity-80 scale-x-[-1]"
-      priority
-    />
-  </div>
-</div>
+      {/* Water Splash - Right (Desktop Only) */}
+      <div className="absolute right-0 bottom-[-120px] w-[30%] h-[70%] hidden md:block">
+        <div className="relative w-full h-full rotate-[-25deg]">
+          <Image
+            src="/images/waterfell.png"
+            alt="Water Splash Right"
+            fill
+            className="object-contain object-right-bottom opacity-80 scale-x-[-1]"
+            priority
+          />
+        </div>
+      </div>
 
 
       {/* Main Content */}
-      <div className="relative z-10 text-center px-4 sm:px-8 lg:px-16 max-w-5xl mx-auto">
+      <div className="relative z-10 text-center px-4 sm:px-8 lg:px-16 max-w-5xl mx-auto mt-12">
         {/* Dynamic Heading */}
         <div className="pt-4 mb-4 sm:mb-6 md:mb-10">
           <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-white mb-2 leading-snug break-words">
@@ -115,11 +115,10 @@ export default function HeroSection() {
             {perfumes.map((perfume, index) => (
               <div
                 key={perfume.id}
-                className={`absolute inset-0 flex items-center justify-center transition-all duration-1000 ease-in-out ${
-                  index === currentPerfume
+                className={`absolute inset-0 flex items-center justify-center transition-all duration-1000 ease-in-out ${index === currentPerfume
                     ? "opacity-100 scale-100 rotate-0"
                     : "opacity-0 scale-95 rotate-3"
-                }`}
+                  }`}
               >
                 <Image
                   src={perfume.image || "/placeholder.svg"}
@@ -134,13 +133,13 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* CTA Button */}
-        <div className="mt-4 sm:mt-6 mb-8 sm:mb-10">
-          <button className="bg-[#B67D43] hover:bg-[#DAB060] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-            Explore Collection
-          </button>
-        </div>
-      </div>
+       {/* CTA Button */}
+<div className="mt-2 sm:mt-4 mb-0 sm:mb-2 -translate-y-4 sm:-translate-y-6 transition-all duration-300">
+  <button className="bg-[#B67D43] hover:bg-[#DAB060] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+    Explore Collection
+  </button>
+</div>
+</div>
 
       {/* Floating Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

@@ -67,7 +67,7 @@ export default function Contact() {
             ref={form}
             onSubmit={sendEmail}
             data-aos="fade-right"
-            className="space-y-4 p-6 rounded-md shadow-sm bg-[#1F1F1F]"
+            className="space-y-4 p-6 rounded-md  bg-[#1F1F1F]"
           >
             <input
               type="text"
@@ -114,7 +114,7 @@ export default function Contact() {
 
           {/* Right Side: Contact Image */}
           <div data-aos="fade-left" className="flex flex-col gap-8">
-            <div className="relative w-full h-96 md:h-[500px] overflow-hidden shadow-xl rounded-md">
+            <div className="relative w-full h-96 md:h-[500px] overflow-hidden  rounded-md">
               <Image
                 src="/images/Contactimg.png"
                 alt="Contact Illustration"
@@ -128,7 +128,7 @@ export default function Contact() {
         {/* Get in Touch Section */}
         <div
           data-aos="fade-up"
-          className="mt-16 lg:mt-20 p-6 rounded-md shadow-sm bg-[#1F1F1F] text-white"
+          className="mt-16 lg:mt-20 p-6 rounded-md  bg-[#1F1F1F] text-white"
         >
           <h2 className="text-5xl font-semibold mb-12 text-[#CE9F56]">
             Get in Touch
