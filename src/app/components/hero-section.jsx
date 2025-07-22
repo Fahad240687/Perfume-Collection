@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection() {
   const [currentPerfume, setCurrentPerfume] = useState(0);
@@ -134,11 +135,15 @@ export default function HeroSection() {
     </div>
 
     {/* CTA Button */}
-    <div className="mt-4">
-      <button className="bg-[#B67D43] hover:bg-[#DAB060] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-        Explore Collection
-      </button>
-    </div>
+    {/* CTA Button - Centered */}
+<div className="mt-4 flex justify-center">
+  <Link href="/shop/perfume" className="group">
+    <button className="bg-[#B67D43] hover:bg-[#DAB060] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+      Explore Collection
+    </button>
+  </Link>
+</div>
+
   </div>
 
   {/* Floating Particles */}
