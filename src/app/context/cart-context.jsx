@@ -23,7 +23,9 @@ export function CartProvider({ children }) {
 
   const addToCart = useCallback((product, quantity = 1) => {
     setCartItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex((item) => item.product.id === product.id)
+const existingItemIndex = prevItems.findIndex(
+  (item) => item.product.id === product.id || item.product._id === product._id
+);
 
       if (existingItemIndex > -1) {
         // Product already in cart, update quantity

@@ -120,7 +120,12 @@ const shopItems = [
               >
                 About
               </Link>
-
+               <Link
+                href="/FAQ"
+                className="text-white hover:text-amber-200 px-3 py-2 text-sm font-medium transition-colors duration-200"
+              >
+                FAQ
+              </Link>
               {/* Contact */}
               <Link
                 href="/contact"

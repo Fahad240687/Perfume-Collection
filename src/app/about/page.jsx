@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Contact from "@/app/components/contact"
+import FAQ from "@/app/components/faq"
 
 export default function AboutPage() {
   return (
@@ -98,6 +99,7 @@ export default function AboutPage() {
           <p className="text-md text-gray-400 mt-2">With love and gratitude, Fragrance Perfumes Team</p>
         </div>
       </div>
+      <FAQ/>
        <Contact/>
     </section>
   )
