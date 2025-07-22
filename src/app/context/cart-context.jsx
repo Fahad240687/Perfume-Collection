@@ -1,94 +1,104 @@
 "use client"
+import { createContext, useContext, useState, useEffect } from "react"
 
-import { createContext, useContext, useState, useEffect, useCallback } from "react"
-
-const CartContext = createContext(null)
+const CartContext = createContext()
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([])
   const [isCartPopupOpen, setIsCartPopupOpen] = useState(false)
 
-  // Load cart from localStorage on initial mount
+  // Load cart from localStorage on mount
   useEffect(() => {
-    const storedCart = localStorage.getItem("cartItems")
-    if (storedCart) {
-      setCartItems(JSON.parse(storedCart))
+    const savedCart = localStorage.getItem("cart")
+    if (savedCart) {
+      try {
+        setCartItems(JSON.parse(savedCart))
+      } catch (error) {
+        console.error("Error loading cart from localStorage:", error)
+        setCartItems([])
+      }
     }
   }, [])
 
-  // Save cart to localStorage whenever cartItems changes
+  // Save cart to localStorage whenever cartItems change
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems))
+    localStorage.setItem("cart", JSON.stringify(cartItems))
   }, [cartItems])
 
-  const addToCart = useCallback((product, quantity = 1) => {
-    setCartItems((prevItems) => {
-const existingItemIndex = prevItems.findIndex(
-  (item) => item.product.id === product.id || item.product._id === product._id
-);
+  // Helper function to get product ID (handles both _id and id)
+  const getProductId = (product) => {
+    return product._id || product.id
+  }
 
-      if (existingItemIndex > -1) {
-        // Product already in cart, update quantity
-        const updatedItems = [...prevItems]
-        updatedItems[existingItemIndex].quantity += quantity
-        return updatedItems
+  const addToCart = (product, quantity = 1) => {
+    console.log("Adding to cart:", product, "Quantity:", quantity) // Debug log
+
+    setCartItems((prevItems) => {
+      const productId = getProductId(product)
+      const existingItem = prevItems.find((item) => getProductId(item.product) === productId)
+
+      if (existingItem) {
+        // Update quantity if item already exists
+        console.log("Item exists, updating quantity") // Debug log
+        return prevItems.map((item) =>
+          getProductId(item.product) === productId ? { ...item, quantity: item.quantity + quantity } : item,
+        )
       } else {
-        // Add new product to cart
+        // Add new item
+        console.log("Adding new item to cart") // Debug log
         return [...prevItems, { product, quantity }]
       }
     })
+
     // Show cart popup when item is added
     setIsCartPopupOpen(true)
-  }, [])
+  }
 
-  const removeFromCart = useCallback((productId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.product.id !== productId))
-  }, [])
+  const removeFromCart = (productId) => {
+    setCartItems((prevItems) => prevItems.filter((item) => getProductId(item.product) !== productId))
+  }
 
-  const updateQuantity = useCallback((productId, newQuantity) => {
+  const updateQuantity = (productId, newQuantity) => {
+    if (newQuantity <= 0) {
+      removeFromCart(productId)
+      return
+    }
+
     setCartItems((prevItems) =>
-      prevItems.map((item) => (item.product.id === productId ? { ...item, quantity: Math.max(1, newQuantity) } : item)),
+      prevItems.map((item) => (getProductId(item.product) === productId ? { ...item, quantity: newQuantity } : item)),
     )
-  }, [])
+  }
 
-  const calculateCartTotal = useCallback(() => {
-    const subtotal = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
-    const shipping = 0 // Free shipping as per screenshot
-    const total = subtotal + shipping
-    return { subtotal, shipping, total }
-  }, [cartItems])
+  const clearCart = () => {
+    setCartItems([])
+  }
 
-  const openCartPopup = useCallback(() => {
-    setIsCartPopupOpen(true)
-  }, [])
+  const openCartPopup = () => setIsCartPopupOpen(true)
+  const closeCartPopup = () => setIsCartPopupOpen(false)
 
-  const closeCartPopup = useCallback(() => {
-    setIsCartPopupOpen(false)
-  }, [])
+  const cartTotal = {
+    subtotal: cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0),
+    total: cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0),
+  }
 
-  const cartTotal = calculateCartTotal()
+  const value = {
+    cartItems,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    clearCart,
+    cartTotal,
+    isCartPopupOpen,
+    openCartPopup,
+    closeCartPopup,
+  }
 
-  return (
-    <CartContext.Provider
-      value={{
-        cartItems,
-        addToCart,
-        removeFromCart,
-        updateQuantity,
-        cartTotal,
-        isCartPopupOpen,
-        openCartPopup,
-        closeCartPopup,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  )
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 
 export function useCart() {
   const context = useContext(CartContext)
-  if (context === null) {
+  if (!context) {
     throw new Error("useCart must be used within a CartProvider")
   }
   return context
