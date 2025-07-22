@@ -4,6 +4,8 @@ import { notFound, useParams, useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import { FaStar, FaRegStar, FaHeart, FaMinus, FaPlus, FaShoppingCart } from "react-icons/fa"
 import { useCart } from "@/app/context/cart-context"
+import { useWishlist } from "@/app/context/wishlist-context"
+import Contact from "@/app/components/contact"
 
 export default function ProductDetailPage() {
   const router = useRouter()
@@ -15,6 +17,7 @@ export default function ProductDetailPage() {
   const [discoverProducts, setDiscoverProducts] = useState([])
   const [loadingDiscover, setLoadingDiscover] = useState(true)
   const [animateHeading, setAnimateHeading] = useState(false)
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
 
   useEffect(() => {
     setAnimateHeading(true)
@@ -88,11 +91,26 @@ export default function ProductDetailPage() {
     }
   }
 
+  const handleWishlistToggle = () => {
+    if (product) {
+      const currentProductId = product._id || product.id
+      console.log("Toggling wishlist for product:", currentProductId)
+      console.log("Current product:", product)
+
+      if (isInWishlist(currentProductId)) {
+        console.log("Removing from wishlist")
+        removeFromWishlist(currentProductId)
+      } else {
+        console.log("Adding to wishlist")
+        addToWishlist(product)
+      }
+    }
+  }
+
   const handleOrderNow = () => {
     if (product) {
-      console.log("Order now - adding product:", product) // Debug log
+      console.log("Order now - adding product:", product)
       addToCart(product, quantity)
-      // Redirect to checkout after adding to cart
       setTimeout(() => {
         router.push("/checkout")
       }, 500)
@@ -123,6 +141,8 @@ export default function ProductDetailPage() {
     notFound()
   }
 
+  const currentProductId = product._id || product.id
+  const isProductInWishlist = isInWishlist(currentProductId)
   const keyNotes = [
     {
       title: "Top Note",
@@ -208,8 +228,16 @@ export default function ProductDetailPage() {
                   </button>
                 </div>
               </div>
-              <button className="flex items-center gap-2 text-gray-300 hover:text-amber-400 transition-colors">
-                Wish list <FaHeart className="h-5 w-5" />
+            <button
+                onClick={handleWishlistToggle}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+                  isProductInWishlist
+                    ? "bg-red-500 text-white hover:bg-red-600"
+                    : "text-gray-300 hover:text-red-400 hover:bg-gray-800"
+                }`}
+              >
+                <FaHeart className={`h-5 w-5 ${isProductInWishlist ? "text-white" : ""}`} />
+                {isProductInWishlist ? "In Wishlist" : "Add to Wishlist"}
               </button>
             </div>
 
@@ -338,7 +366,9 @@ export default function ProductDetailPage() {
             </div>
           )}
         </section>
+       
       </div>
+       <Contact/>
     </div>
   )
 }

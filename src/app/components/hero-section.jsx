@@ -9,28 +9,28 @@ export default function HeroSection() {
   const perfumes = [
     {
       id: 1,
-      image: "/images/perfume2.png",
+      image: "/images/perfume6.png",
       alt: "A Symphony of Fragrance in Every Drop",
       heading: "A Symphony of Fragrance",
       description: "Every drop sings a story of elegance and charm.",
     },
     {
       id: 2,
-      image: "/images/perfume2.png",
+      image: "/images/perfume1.png",
       alt: "Elegance Bottled for the Modern Soul",
       heading: "Elegance in a Bottle",
       description: "Crafted for the modern soul who appreciates grace.",
     },
     {
       id: 3,
-      image: "/images/perfume5.png",
+      image: "/images/Arabic-Collection/2.png",
       alt: "Where Scent Meets Sophistication",
       heading: "Scent Meets Sophistication",
       description: "Refined aromas that define your unique style.",
     },
     {
       id: 4,
-      image: "/images/perfume4.png",
+      image: "/images/Perfume/3.png",
       alt: "Unveil the Art of Fine Perfumery",
       heading: "The Art of Perfumery",
       description: "Unveil timeless fragrance artistry in every bottle.",

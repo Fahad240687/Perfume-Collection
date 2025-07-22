@@ -1,28 +1,31 @@
-import "./globals.css"
-import Navbar from "@/app/components/navbar"
-import Footer from "@/app/components/footer"
-import { CartProvider } from "@/app/context/cart-context" 
-import CartPopup from "@/app/components/cart-popup"
-
+import "./globals.css";
+import Navbar from "@/app/components/navbar";
+import Footer from "@/app/components/footer";
+import { CartProvider } from "@/app/context/cart-context";
+import CartPopup from "@/app/components/cart-popup";
+import { WishlistProvider } from "@/app/context/wishlist-context";
 
 export const metadata = {
   title: "My Next.js App",
   description: "A modern Next.js application with navbar",
-}
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="bg-gray-50">
         <CartProvider>
-          {" "}
-          {/* Wrap children with CartProvider */}
-          <Navbar />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
-          <CartPopup/>
+          <WishlistProvider>
+            {" "}
+            {/* Wrap children with CartProvider */}
+            <Navbar />
+            <div className="fixed top-4 right-4 z-50 flex items-center gap-4"></div>
+            <main className="min-h-screen">{children}</main>
+            <Footer />
+            <CartPopup />
+          </WishlistProvider>
         </CartProvider>
       </body>
     </html>
-  )
+  );
 }
