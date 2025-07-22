@@ -21,9 +21,9 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className="bg-[#0F0F0F] text-white min-h-screen">
+    <div className=" text-white min-h-screen">
       {/* Header */}
-      <div className="bg-[#1A1A1A] border-b border-gray-800">
+      <div className=" border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">

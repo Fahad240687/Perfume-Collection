@@ -46,8 +46,8 @@ export default function GalleryPage() {
           justify-content: center;
         }
         .lightbox-image {
-          max-width: 100%;
-          max-height: 100%;
+          max-width: 90%;
+          max-height: 90%;
           display: block;
           margin: auto;
           border-radius: 1rem;
@@ -68,12 +68,12 @@ export default function GalleryPage() {
         .image-container {
           position: relative;
           overflow: hidden;
-          border-radius: 1.5rem;
+          border-radius: 1rem;
           cursor: pointer;
         }
         .image-container img {
           transition: transform 0.7s ease, filter 0.7s ease;
-          border-radius: 1.5rem;
+          border-radius: 1rem;
         }
         .image-container:hover img {
           filter: grayscale(70%);
@@ -94,8 +94,8 @@ export default function GalleryPage() {
           transform: translateY(100%);
           transition: opacity 0.5s ease, transform 0.5s ease;
           text-align: center;
-          border-bottom-left-radius: 1.5rem;
-          border-bottom-right-radius: 1.5rem;
+          border-bottom-left-radius: 1rem;
+          border-bottom-right-radius: 1rem;
           user-select: none;
           white-space: normal;
           overflow: hidden;
@@ -104,19 +104,68 @@ export default function GalleryPage() {
           opacity: 1;
           transform: translateY(0);
         }
+
+        /* Responsive tweaks */
+        @media (max-width: 768px) {
+          h2 {
+            font-size: 2rem !important;
+            margin-bottom: 1rem !important;
+          }
+          .gallery {
+            padding: 0 0.5rem;
+          }
+          .md\\:col-span-4, .md\\:col-span-8 {
+            grid-column: span 1 !important;
+          }
+          .md\\:grid-cols-12, .md\\:grid-cols-3 {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
+          }
+          .md\\:h-\\[404px\\], .h-\\[240px\\] {
+            height: 180px !important;
+          }
+          .image-container {
+            height: 180px !important;
+          }
+          .mb-10, .lg\\:mb-11, .mb-7 {
+            margin-bottom: 1rem !important;
+          }
+          .gap-6 {
+            gap: 1rem !important;
+          }
+          .overlay-text {
+            font-size: 0.8rem;
+            padding: 0.5rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          h2 {
+            font-size: 1.8rem !important;
+          }
+          .md\\:h-\\[404px\\], .h-\\[240px\\] {
+            height: 150px !important;
+          }
+          .image-container {
+            height: 150px !important;
+          }
+          .overlay-text {
+            font-size: 0.7rem;
+          }
+        }
       `}</style>
 
-      <section className="py-12">
+      <section className="py-8 md:py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
-          <div className="grid gap-2.5 lg:pb-16 pb-10">
+          <div className="grid gap-2.5 lg:pb-16 pb-8">
             <h2
               className={`
                 max-w-3xl mx-auto
-                text-4xl sm:text-5xl
+                text-3xl sm:text-4xl md:text-5xl
                 font-serif font-extrabold
                 text-center text-[#DAB060]
                 tracking-wide
-                mb-10 md:mb-4
+                mb-6 md:mb-4
                 transition-all duration-700 ease-out
                 cursor-default
                 select-none
@@ -132,19 +181,21 @@ export default function GalleryPage() {
             >
               Our Collections
             </h2>
-            <div className="w-full text-center text-gray-100 text-lg font-normal ">
+            <div className="w-full text-center text-gray-100 text-base md:text-lg font-normal">
               Step into a realm where art comes to life.
             </div>
           </div>
 
           <div className="gallery">
-            <div className="flex flex-col mb-10">
-              <div className="grid md:grid-cols-12 gap-6 lg:mb-11 mb-7">
-                <div className="md:col-span-4 md:h-[404px] h-[240px] w-full image-container">
+            <div className="flex flex-col mb-6 md:mb-10">
+              <div className="grid md:grid-cols-12 gap-4 md:gap-6 lg:mb-11 mb-5">
+                <div
+                  className="md:col-span-4 md:h-[404px] h-[180px] sm:h-[240px] w-full image-container"
+                >
                   <img
                     src={images[0]}
                     alt="Gallery image"
-                    className="object-cover w-full h-full rounded-3xl"
+                    className="object-cover w-full h-full rounded-2xl md:rounded-3xl"
                     onClick={() => openLightbox(images[0])}
                     loading="lazy"
                   />
@@ -152,11 +203,13 @@ export default function GalleryPage() {
                     An elegant fragrance that captures the essence of timeless luxury, blending classic notes with modern sophistication.
                   </div>
                 </div>
-                <div className="md:col-span-8 md:h-[404px] h-[240px] w-full image-container">
+                <div
+                  className="md:col-span-8 md:h-[404px] h-[180px] sm:h-[240px] w-full image-container"
+                >
                   <img
                     src={images[1]}
                     alt="Gallery image"
-                    className="object-cover w-full h-full rounded-3xl"
+                    className="object-cover w-full h-full rounded-2xl md:rounded-3xl"
                     onClick={() => openLightbox(images[1])}
                     loading="lazy"
                   />
@@ -166,17 +219,17 @@ export default function GalleryPage() {
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
+              <div className="grid md:grid-cols-3 grid-cols-1 gap-4 md:gap-6">
                 {images.slice(2).map((src, i) => (
                   <div
                     key={i}
-                    className="h-[240px] w-full image-container"
+                    className="h-[150px] sm:h-[200px] md:h-[240px] w-full image-container"
                     onClick={() => openLightbox(src)}
                   >
                     <img
                       src={src}
                       alt={`Gallery image ${i + 3}`}
-                      className="object-cover w-full h-full rounded-3xl"
+                      className="object-cover w-full h-full rounded-2xl md:rounded-3xl"
                       loading="lazy"
                     />
                     <div className="overlay-text">

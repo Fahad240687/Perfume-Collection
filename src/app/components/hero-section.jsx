@@ -46,7 +46,7 @@ export default function HeroSection() {
   }, []);
 
   return (
- <section className="relative h-[55vh] sm:h-[80vh] overflow-hidden flex items-center justify-center mt-4">
+<section className="relative h-[45vh] sm:h-[70vh] overflow-hidden flex items-center justify-center mt-4">
   {/* Background Gradient */}
   <div className="absolute inset-0 bg-[#1F1F1F]" />
 
@@ -78,7 +78,7 @@ export default function HeroSection() {
 
   {/* Mobile Water Splashes */}
   <div className="absolute left-0 bottom-0 translate-x-[-30%] translate-y-[10%] z-10 md:hidden">
-    <div className="relative w-40 h-52 rotate-[-20deg] top-8">
+    <div className="relative w-28 h-36 rotate-[-20deg] top-4">
       <Image
         src="/images/waterfell.png"
         alt="Water Splash Left Mobile"
@@ -88,7 +88,7 @@ export default function HeroSection() {
     </div>
   </div>
   <div className="absolute right-0 bottom-0 translate-x-[30%] translate-y-[10%] z-10 md:hidden">
-    <div className="relative w-40 h-52 rotate-[20deg] top-8">
+    <div className="relative w-28 h-36 rotate-[20deg] top-4">
       <Image
         src="/images/waterfell.png"
         alt="Water Splash Right Mobile"
@@ -99,20 +99,19 @@ export default function HeroSection() {
   </div>
 
   {/* Content Wrapper */}
-  <div className="relative z-20 flex flex-col items-center justify-between w-full h-full px-4 sm:px-8 lg:px-16 max-w-5xl mx-auto py-8">
-    
+  <div className="relative z-20 flex flex-col items-center justify-between w-full h-full px-4 sm:px-8 lg:px-16 max-w-5xl mx-auto py-4 sm:py-8">
     {/* Heading */}
     <div className="text-center">
-      <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-white mb-2 leading-snug break-words">
+      <h1 className="text-base sm:text-3xl md:text-4xl lg:text-5xl font-light text-white mb-1 sm:mb-2 leading-snug break-words">
         {perfumes[currentPerfume].heading}
       </h1>
-      <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 font-light px-2 sm:px-6 md:px-12">
+      <p className="text-xs sm:text-base md:text-lg lg:text-xl text-gray-300 font-light px-2 sm:px-6 md:px-12">
         {perfumes[currentPerfume].description}
       </p>
     </div>
 
     {/* Perfume Bottle */}
-    <div className="relative w-52 h-72 sm:w-72 sm:h-96 md:w-96 md:h-[500px] flex items-center justify-center mt-6 mb-6 sm:mb-10">
+    <div className="relative w-36 h-52 sm:w-64 sm:h-80 md:w-96 md:h-[500px] flex items-center justify-center mt-4 sm:mt-6 mb-4 sm:mb-10">
       {perfumes.map((perfume, index) => (
         <div
           key={perfume.id}
@@ -135,15 +134,13 @@ export default function HeroSection() {
     </div>
 
     {/* CTA Button */}
-    {/* CTA Button - Centered */}
-<div className="mt-4 flex justify-center">
-  <Link href="/shop/perfume" className="group">
-    <button className="bg-[#B67D43] hover:bg-[#DAB060] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-      Explore Collection
-    </button>
-  </Link>
-</div>
-
+    <div className="mt-2 sm:mt-4 flex justify-center">
+      <Link href="/shop/perfume" className="group">
+        <button className="bg-[#B67D43] hover:bg-[#DAB060] text-white px-5 sm:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+          Explore Collection
+        </button>
+      </Link>
+    </div>
   </div>
 
   {/* Floating Particles */}

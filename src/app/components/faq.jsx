@@ -43,59 +43,62 @@ const faqs = [
 
 export default function FAQSection() {
   const [openIndex, setOpenIndex] = useState(null);
-    useEffect(() => {
-        setAnimateHeading(true);
-    }, []);
   const [animateHeading, setAnimateHeading] = useState(false);
+
+  useEffect(() => {
+    setAnimateHeading(true);
+  }, []);
+
   const toggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section className="py-24 bg-[#1f1f1f]">
+    <section className="py-12 md:py-24 bg-[#1f1f1f]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
- <h2
-              className={`
-                max-w-3xl mx-auto
-                text-4xl sm:text-5xl
-                font-serif font-extrabold
-                text-center text-[#DAB060]
-                tracking-wide
-                mb-10 md:mb-4
-                transition-all duration-700 ease-out
-                cursor-default
-                select-none
-                ${
-                  animateHeading ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
-                }
-                hover:text-[#E6C16A]
-                hover:scale-105
-                hover:drop-shadow-lg
-              `}
-            >
-              Our Collections
-            </h2>          <h2 className="text-2xl  text-gray-100 leading-[3.25rem]">
+        <div className="mb-8 md:mb-16 text-center">
+          <h2
+            className={`
+              max-w-3xl mx-auto
+              text-2xl sm:text-3xl md:text-4xl
+              font-serif font-extrabold
+              text-center text-[#DAB060]
+              tracking-wide
+              mb-6 md:mb-10
+              transition-all duration-700 ease-out
+              cursor-default
+              select-none
+              ${
+                animateHeading ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
+              }
+              hover:text-[#E6C16A]
+              hover:scale-105
+              hover:drop-shadow-lg
+            `}
+          >
+            Ask Us
+          </h2>
+          <h2 className="text-xl md:text-2xl text-gray-100 leading-[1.75rem] md:leading-[3.25rem]">
             Frequently Asked Questions
           </h2>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-2 md:space-y-4">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="border-b border-gray-100 rounded-2xl overflow-hidden hover:bg-[#E6C16A] transition-all duration-300"
+              className="border-b border-gray-100 rounded-lg md:rounded-2xl overflow-hidden hover:bg-[#E6C16A] transition-all duration-300"
             >
               <button
-                className="w-full px-6 py-6 text-left flex justify-between items-center text-gray-100 hover:text-black"
+                className="w-full px-4 py-4 md:px-6 md:py-6 text-left flex justify-between items-center text-gray-100 hover:text-black"
                 onClick={() => toggle(index)}
               >
-                <h5 className="text-lg font-medium">{faq.question}</h5>
+                <h5 className="text-base md:text-lg font-medium">{faq.question}</h5>
                 <motion.svg
                   animate={{ rotate: openIndex === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
-                  width="22"
-                  height="22"
+                  width="18"
+                  height="18"
                   viewBox="0 0 22 22"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -117,7 +120,7 @@ export default function FAQSection() {
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.4 }}
-                    className="px-6 pb-4 text-white hover:text-black  text-base"
+                    className="px-4 md:px-6 pb-4 text-white hover:text-black text-sm md:text-base"
                   >
                     {faq.answer}
                   </motion.div>
