@@ -8,6 +8,11 @@ import Contact from "@/app/components/contact"
 export default function GiftSetPage() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
+   const [animateHeading, setAnimateHeading] = useState(false);
+
+  useEffect(() => {
+    setAnimateHeading(true);
+  }, []);
 
   useEffect(() => {
     fetchProducts()
@@ -29,20 +34,44 @@ export default function GiftSetPage() {
   }
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-[#1F1F1F] flex items-center justify-center">
-        <div className="text-white text-xl">Loading gift sets...</div>
-      </div>
-    )
-  }
+  return (
+    <div className="min-h-screen bg-[#1F1F1F] flex flex-col items-center justify-center space-y-4">
+      {/* Spinner */}
+      <div className="w-12 h-12 border-4 border-[#CE9F56] border-t-transparent rounded-full animate-spin"></div>
 
+      {/* Text */}
+      <div className="text-[#CE9F56] text-lg font-medium">
+        Loading Gift Sets...
+      </div>
+    </div>
+  );
+}
   return (
     <div className="min-h-screen bg-[#1F1F1F]">
       <CategoryHeroSection categoryName="Gift Set" />
 
       <section className="bg-[#1F1F1F] py-16 md:py-24">
         <div className="w-full px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl sm:text-5xl font-bold text-center text-white mb-12 md:mb-16">
+          <h2 className={`
+                max-w-3xl mx-auto
+                text-4xl sm:text-5xl
+                font-serif font-extrabold
+                text-center text-[#DAB060]
+                tracking-wide
+                mb-10 md:mb-14
+                transition-all duration-700 ease-out
+                cursor-default
+                select-none
+                ${
+                  animateHeading
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 -translate-y-10"
+                }
+                hover:text-[#E6C16A]
+                hover:scale-105
+                hover:drop-shadow-lg
+              `}
+>
             Our Gift Set Collection ({products.length})
           </h2>
 

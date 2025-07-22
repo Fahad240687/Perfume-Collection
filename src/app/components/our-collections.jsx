@@ -65,7 +65,6 @@ export default function GalleryPage() {
         .close:hover {
           color: #d9b24a;
         }
-        /* Hover overlay text container */
         .image-container {
           position: relative;
           overflow: hidden;
@@ -80,17 +79,17 @@ export default function GalleryPage() {
           filter: grayscale(70%);
           transform: scale(1.05);
         }
-        /* Overlay text */
         .overlay-text {
           position: absolute;
           bottom: 0;
           left: 0;
           right: 0;
-          background: rgba(0, 0, 0, 0.5);
+          background: rgba(0, 0, 0, 0.6);
           color: #dab060;
-          font-weight: 600;
-          font-size: 1.125rem; /* text-lg */
-          padding: 0.75rem 1rem;
+          font-weight: 500;
+          font-size: 0.95rem;
+          line-height: 1.4;
+          padding: 1rem 1.25rem;
           opacity: 0;
           transform: translateY(100%);
           transition: opacity 0.5s ease, transform 0.5s ease;
@@ -98,6 +97,8 @@ export default function GalleryPage() {
           border-bottom-left-radius: 1.5rem;
           border-bottom-right-radius: 1.5rem;
           user-select: none;
+          white-space: normal;
+          overflow: hidden;
         }
         .image-container:hover .overlay-text {
           opacity: 1;
@@ -120,7 +121,9 @@ export default function GalleryPage() {
                 cursor-default
                 select-none
                 ${
-                  animateHeading ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
+                  animateHeading
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 -translate-y-10"
                 }
                 hover:text-[#E6C16A]
                 hover:scale-105
@@ -145,7 +148,9 @@ export default function GalleryPage() {
                     onClick={() => openLightbox(images[0])}
                     loading="lazy"
                   />
-                  <div className="overlay-text">Elegant Fragrance</div>
+                  <div className="overlay-text">
+                    An elegant fragrance that captures the essence of timeless luxury, blending classic notes with modern sophistication.
+                  </div>
                 </div>
                 <div className="md:col-span-8 md:h-[404px] h-[240px] w-full image-container">
                   <img
@@ -155,7 +160,9 @@ export default function GalleryPage() {
                     onClick={() => openLightbox(images[1])}
                     loading="lazy"
                   />
-                  <div className="overlay-text">Luxurious Aroma</div>
+                  <div className="overlay-text">
+                    Let yourself be enveloped in this luxurious aroma — crafted with care, designed to leave a lasting impression wherever you go.
+                  </div>
                 </div>
               </div>
 
@@ -172,7 +179,9 @@ export default function GalleryPage() {
                       className="object-cover w-full h-full rounded-3xl"
                       loading="lazy"
                     />
-                    <div className="overlay-text">Exclusive Scent {i + 3}</div>
+                    <div className="overlay-text">
+                      Experience the allure of Exclusive Scent {i + 3}, blending rare ingredients with a hint of mystery and elegance.
+                    </div>
                   </div>
                 ))}
               </div>
