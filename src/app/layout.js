@@ -6,8 +6,8 @@ import CartPopup from "@/app/components/cart-popup";
 import { WishlistProvider } from "@/app/context/wishlist-context";
 
 export const metadata = {
-  title: "My Next.js App",
-  description: "A modern Next.js application with navbar",
+  title: "Perfume Collection",
+  description: "Explore our exquisite range of perfumes, crafted for elegance and sophistication.",
 };
 
 export default function RootLayout({ children }) {
