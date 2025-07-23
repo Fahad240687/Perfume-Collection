@@ -48,7 +48,7 @@ export default function Footer() {
                   <path d="M3 21h18" />
                   <path d="M9 10h10" />
                 </svg>
-                <span>FRAGRANCE</span>
+                <span>Scentmire</span>
               </div>
             </Link>
             <p className="text-gray-700 text-sm">
@@ -109,7 +109,7 @@ export default function Footer() {
 
         {/* Bottom Line */}
         <div className="py-6 text-center text-gray-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} FRAGRANCE. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Scentmire. All rights reserved.</p>
         </div>
       </div>
 
@@ -117,7 +117,7 @@ export default function Footer() {
       {showScroll && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 bg-[#E6C16A] border border-gray-400 text-black p-3 rounded-full shadow-lg hover:bg-amber-600 hover:text-white transition-all"
+          className="fixed bottom-6 right-6 z-50  border border-[#E6C16A] text-[#E6C16A]  p-2 rounded-lg shadow-lg  hover:text-[#E6C16A] transition-all"
           aria-label="Scroll to top"
         >
           <FaArrowUp size={16} />

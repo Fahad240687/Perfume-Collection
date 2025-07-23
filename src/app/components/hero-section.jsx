@@ -134,7 +134,7 @@ export default function HeroSection() {
         {/* CTA Button */}
         <div className="mt-2 sm:mt-4">
           <Link href="/shop/perfume" className="group">
-           <button className="bg-[#B67D43] hover:bg-[#DAB060] text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs font-medium transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+           <button className="bg-[#B67D43] hover:bg-[#DAB060] text-white px-3 py-2 sm:px-4 sm:py-2 rounded-full text-xs font-medium transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
   Explore Perfumes
 </button>
 
