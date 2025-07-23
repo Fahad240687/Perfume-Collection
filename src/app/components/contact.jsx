@@ -38,23 +38,21 @@ export default function Contact() {
   }
 
   return (
-    <section className="bg-[#1F1F1F] py-12 md:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section className="bg-[#1F1F1F] py-8 md:py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <h1
           data-aos="fade-down"
           className={`
-            max-w-4xl mx-auto
-            text-3xl sm:text-4xl md:text-5xl lg:text-6xl
+            max-w-3xl mx-auto
+            text-2xl sm:text-3xl md:text-4xl lg:text-5xl
             font-serif font-extrabold
             text-center text-[#DAB060]
             tracking-wide
-            mb-8 md:mb-12 lg:mb-16
+            mb-6 md:mb-8 lg:mb-10
             transition-all duration-700 ease-out
             cursor-default
             select-none
-            ${
-              animateHeading ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"
-            }
+            ${animateHeading ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"}
             hover:text-[#E6C16A]
             hover:scale-105
             hover:drop-shadow-lg
@@ -62,14 +60,14 @@ export default function Contact() {
         >
           Contact Us
         </h1>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           {/* Left Side: Form */}
           <form
             ref={form}
             onSubmit={sendEmail}
             data-aos="fade-right"
-            className="space-y-3 md:space-y-4 p-4 md:p-6 rounded-md bg-[#1F1F1F]"
+            className="space-y-3 md:space-y-4 p-3 md:p-4 rounded-md bg-[#1F1F1F]"
           >
             <input
               type="text"
@@ -115,8 +113,8 @@ export default function Contact() {
           </form>
 
           {/* Right Side: Contact Image */}
-          <div data-aos="fade-left" className="flex flex-col gap-4 md:gap-8">
-            <div className="relative w-full h-64 sm:h-80 md:h-[400px] lg:h-[500px] overflow-hidden rounded-md">
+          <div data-aos="fade-left" className="flex flex-col gap-4 md:gap-6">
+            <div className="relative w-full h-48 sm:h-60 md:h-72 lg:h-80 overflow-hidden rounded-md">
               <Image
                 src="/images/Contactimg.png"
                 alt="Contact Illustration"
@@ -131,7 +129,7 @@ export default function Contact() {
         {/* Get in Touch Section */}
         <div
           data-aos="fade-up"
-          className="mt-12 md:mt-16 lg:mt-20 p-4 md:p-6 rounded-md bg-[#1F1F1F] text-white"
+          className="mt-10 md:mt-12 lg:mt-16 p-3 md:p-4 rounded-md bg-[#1F1F1F] text-white"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 md:mb-12 text-[#CE9F56]">
             Get in Touch
@@ -186,5 +184,5 @@ export default function Contact() {
         </div>
       </div>
     </section>
-  )
+  );
 }

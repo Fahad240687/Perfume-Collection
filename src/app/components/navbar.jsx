@@ -52,7 +52,20 @@ export default function Navbar() {
                     <path d="M3 21h18" />
                     <path d="M9 10h10" />
                   </svg>
-                  <span>FRAGRANCE</span>
+                <span
+  className="
+    font-playfair text-sm md:text-3xl 
+    tracking-widest 
+    uppercase 
+    text-white 
+    drop-shadow-md 
+    select-none
+    cursor-default
+  "
+>
+  Scentmire
+</span>
+
                 </div>
               </div>
             </Link>
@@ -169,73 +182,76 @@ export default function Navbar() {
             <WishlistCounter />
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-4">
-            {/* Cart Icon - Mobile */}
-            <button
-              onClick={openCartPopup}
-              className="relative text-white hover:text-amber-200 transition-colors duration-200 p-2"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="9" cy="21" r="1"></circle>
-                <circle cx="20" cy="21" r="1"></circle>
-                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-              </svg>
-              {cartItems.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full min-w-[20px] h-5 flex items-center justify-center px-1 font-medium z-10">
-                  {cartItems.length}
-                </span>
-              )}
-            </button>
+         {/* Mobile menu button */}
+<div className="md:hidden flex items-center space-x-3">
+  {/* Cart Icon - Mobile */}
+  <button
+    onClick={openCartPopup}
+    className="relative text-white hover:text-amber-200 transition-colors duration-200 p-1.5"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-5 w-5"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="9" cy="21" r="1"></circle>
+      <circle cx="20" cy="21" r="1"></circle>
+      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+    </svg>
+    {cartItems.length > 0 && (
+      <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] rounded-full min-w-[16px] h-4 flex items-center justify-center px-1 font-medium z-10">
+        {cartItems.length}
+      </span>
+    )}
+  </button>
 
-            {/* Wishlist Counter */}
-            <WishlistCounter />
+  {/* Wishlist Counter */}
+  <div className="scale-90">
+    <WishlistCounter />
+  </div>
 
-            {/* Hamburger button */}
-            <button
-              onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-amber-200 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition-colors duration-200"
-            >
-              {isOpen ? (
-                <svg
-                  className="block h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="block h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
-            </button>
-          </div>
+  {/* Hamburger button */}
+  <button
+    onClick={toggleMenu}
+    className="inline-flex items-center justify-center p-1.5 rounded-md text-white hover:text-amber-200 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white transition-colors duration-200"
+  >
+    {isOpen ? (
+      <svg
+        className="block h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    ) : (
+      <svg
+        className="block h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M4 6h16M4 12h16M4 18h16"
+        />
+      </svg>
+    )}
+  </button>
+</div>
+ 
         </div>
       </div>
       {/* Mobile Menu */}

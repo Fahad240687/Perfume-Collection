@@ -46,119 +46,117 @@ export default function HeroSection() {
   }, []);
 
   return (
-<section className="relative h-[45vh] sm:h-[70vh] overflow-hidden flex items-center justify-center mt-4">
-  {/* Background Gradient */}
-  <div className="absolute inset-0 bg-[#1F1F1F]" />
+    <section className="relative h-[40vh] sm:h-[65vh] overflow-hidden flex items-center justify-center mt-4">
+      {/* Background */}
+      <div className="absolute inset-0 bg-[#1F1F1F]" />
 
-  {/* Water Splash - Left (Desktop Only) */}
-  <div className="absolute left-0 bottom-[-120px] w-[30%] h-[70%] hidden md:block">
-    <div className="relative w-full h-full rotate-[25deg]">
-      <Image
-        src="/images/waterfell.png"
-        alt="Water Splash Left"
-        fill
-        className="object-contain object-left-bottom opacity-80"
-        priority
-      />
-    </div>
-  </div>
-
-  {/* Water Splash - Right (Desktop Only) */}
-  <div className="absolute right-0 bottom-[-120px] w-[30%] h-[70%] hidden md:block">
-    <div className="relative w-full h-full rotate-[-25deg]">
-      <Image
-        src="/images/waterfell.png"
-        alt="Water Splash Right"
-        fill
-        className="object-contain object-right-bottom opacity-80 scale-x-[-1]"
-        priority
-      />
-    </div>
-  </div>
-
-  {/* Mobile Water Splashes */}
-  <div className="absolute left-0 bottom-0 translate-x-[-30%] translate-y-[10%] z-10 md:hidden">
-    <div className="relative w-28 h-36 rotate-[-20deg] top-4">
-      <Image
-        src="/images/waterfell.png"
-        alt="Water Splash Left Mobile"
-        fill
-        className="object-contain opacity-70"
-      />
-    </div>
-  </div>
-  <div className="absolute right-0 bottom-0 translate-x-[30%] translate-y-[10%] z-10 md:hidden">
-    <div className="relative w-28 h-36 rotate-[20deg] top-4">
-      <Image
-        src="/images/waterfell.png"
-        alt="Water Splash Right Mobile"
-        fill
-        className="object-contain opacity-70 scale-x-[-1]"
-      />
-    </div>
-  </div>
-
-  {/* Content Wrapper */}
-  <div className="relative z-20 flex flex-col items-center justify-between w-full h-full px-4 sm:px-8 lg:px-16 max-w-5xl mx-auto py-4 sm:py-8">
-    {/* Heading */}
-    <div className="text-center">
-      <h1 className="text-base sm:text-3xl md:text-4xl lg:text-5xl font-light text-white mb-1 sm:mb-2 leading-snug break-words">
-        {perfumes[currentPerfume].heading}
-      </h1>
-      <p className="text-xs sm:text-base md:text-lg lg:text-xl text-gray-300 font-light px-2 sm:px-6 md:px-12">
-        {perfumes[currentPerfume].description}
-      </p>
-    </div>
-
-    {/* Perfume Bottle */}
-    <div className="relative w-36 h-52 sm:w-64 sm:h-80 md:w-96 md:h-[500px] flex items-center justify-center mt-4 sm:mt-6 mb-4 sm:mb-10">
-      {perfumes.map((perfume, index) => (
-        <div
-          key={perfume.id}
-          className={`absolute inset-0 flex items-center justify-center transition-all duration-1000 ease-in-out ${
-            index === currentPerfume
-              ? "opacity-100 scale-100 rotate-0"
-              : "opacity-0 scale-95 rotate-3"
-          }`}
-        >
+      {/* Decorative Water Splashes */}
+      <div className="absolute left-0 bottom-[-120px] w-[25%] h-[60%] hidden md:block">
+        <div className="relative w-full h-full rotate-[25deg]">
           <Image
-            src={perfume.image || "/placeholder.svg"}
-            alt={perfume.alt}
-            width={384}
-            height={500}
-            className="object-contain drop-shadow-2xl"
-            priority={index === 0}
+            src="/images/waterfell.png"
+            alt="Water Splash Left"
+            fill
+            className="object-contain object-left-bottom opacity-80"
+            priority
           />
         </div>
-      ))}
-    </div>
+      </div>
+      <div className="absolute right-0 bottom-[-120px] w-[25%] h-[60%] hidden md:block">
+        <div className="relative w-full h-full rotate-[-25deg]">
+          <Image
+            src="/images/waterfell.png"
+            alt="Water Splash Right"
+            fill
+            className="object-contain object-right-bottom opacity-80 scale-x-[-1]"
+            priority
+          />
+        </div>
+      </div>
 
-    {/* CTA Button */}
-    <div className="mt-2 sm:mt-4 flex justify-center">
-      <Link href="/shop/perfume" className="group">
-        <button className="bg-[#B67D43] hover:bg-[#DAB060] text-white px-5 sm:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-          Explore Collection
-        </button>
-      </Link>
-    </div>
-  </div>
+      {/* Mobile Water Splashes */}
+      <div className="absolute left-0 bottom-0 translate-x-[-30%] translate-y-[10%] z-10 md:hidden">
+        <div className="relative w-20 h-28 rotate-[-20deg] top-4">
+          <Image
+            src="/images/waterfell.png"
+            alt="Water Splash Left Mobile"
+            fill
+            className="object-contain opacity-70"
+          />
+        </div>
+      </div>
+      <div className="absolute right-0 bottom-0 translate-x-[30%] translate-y-[10%] z-10 md:hidden">
+        <div className="relative w-20 h-28 rotate-[20deg] top-4">
+          <Image
+            src="/images/waterfell.png"
+            alt="Water Splash Right Mobile"
+            fill
+            className="object-contain opacity-70 scale-x-[-1]"
+          />
+        </div>
+      </div>
 
-  {/* Floating Particles */}
-  <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-    {[...Array(20)].map((_, i) => (
-      <div
-        key={i}
-        className="absolute w-1 h-1 bg-white rounded-full opacity-30 animate-pulse"
-        style={{
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          animationDelay: `${Math.random() * 3}s`,
-          animationDuration: `${2 + Math.random() * 3}s`,
-        }}
-      />
-    ))}
-  </div>
-</section>
+      {/* Content Wrapper */}
+      <div className="relative z-20 flex flex-col items-center justify-between w-full h-full px-4 sm:px-8 max-w-5xl mx-auto py-2 sm:py-4">
+        {/* Text Content */}
+        <div className="text-center mb-2 sm:mb-4">
+          <h1 className="text-sm sm:text-2xl md:text-3xl lg:text-4xl font-light text-white mb-1 leading-tight">
+            {perfumes[currentPerfume].heading}
+          </h1>
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 font-light px-2 sm:px-6">
+            {perfumes[currentPerfume].description}
+          </p>
+        </div>
 
+        {/* Smaller Perfume Image */}
+        <div className="relative w-20 h-28 sm:w-32 sm:h-44 md:w-40 md:h-56 flex items-center justify-center mb-2 sm:mb-6">
+          {perfumes.map((perfume, index) => (
+            <div
+              key={perfume.id}
+              className={`absolute inset-0 flex items-center justify-center transition-all duration-1000 ease-in-out ${
+                index === currentPerfume
+                  ? "opacity-100 scale-100 rotate-0"
+                  : "opacity-0 scale-90 rotate-3"
+              }`}
+            >
+              <Image
+                src={perfume.image || "/placeholder.svg"}
+                alt={perfume.alt}
+                width={200}
+                height={280}
+                className="object-contain drop-shadow-2xl"
+                priority={index === 0}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* CTA Button */}
+        <div className="mt-2 sm:mt-4">
+          <Link href="/shop/perfume" className="group">
+           <button className="bg-[#B67D43] hover:bg-[#DAB060] text-white px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs font-medium transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+  Explore Perfumes
+</button>
+
+          </Link>
+        </div>
+      </div>
+
+      {/* Floating Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full opacity-30 animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 3}s`,
+            }}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
