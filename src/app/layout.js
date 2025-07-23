@@ -6,7 +6,7 @@ import CartPopup from "@/app/components/cart-popup";
 import { WishlistProvider } from "@/app/context/wishlist-context";
 
 export const metadata = {
-  title: "Perfume Collection",
+  title: "Scentmire",
   description: "Explore our exquisite range of perfumes, crafted for elegance and sophistication.",
 };
 

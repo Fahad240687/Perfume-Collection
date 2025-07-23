@@ -53,16 +53,42 @@ export default function CheckoutPage() {
     }
   };
 
-  const handlePlaceOrder = async (e) => {
-    e.preventDefault();
-    setIsProcessing(true);
+ const handlePlaceOrder = async (e) => {
+  e.preventDefault();
+  setIsProcessing(true);
 
-    // Simulate processing
+  if (paymentMethod === "jazzcash") {
+    try {
+      const res = await fetch("/api/jazzcash", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: cartTotal.total }),
+      });
+
+      const html = await res.text();
+
+      const win = window.open("", "_self");
+      win.document.open();
+      win.document.write(html);
+      win.document.close();
+    } catch (error) {
+      console.error("JazzCash error:", error);
+      alert("Something went wrong with JazzCash payment.");
+      setIsProcessing(false);
+    }
+  } else {
+    // Handle other methods like COD, Card etc.
     setTimeout(() => {
       setIsProcessing(false);
       clearCart();
-      router.push("/order-success");
+      router.push("/payment-success"); // or /payment-success if shared
     }, 2000);
+  }
+
+
+
+    // Simulate processing
+    
   };
 
   // Redirect if cart is empty
