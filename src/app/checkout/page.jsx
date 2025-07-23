@@ -3,7 +3,15 @@ import Image from "next/image";
 import { useState } from "react";
 import { useCart } from "@/app/context/cart-context";
 import { useRouter } from "next/navigation";
-import { FaCreditCard, FaUniversity, FaMobile } from "react-icons/fa";
+import {
+  FaCreditCard,
+  FaUniversity,
+  FaMobile,
+  FaMobileAlt,
+  FaMoneyBillWaveAlt,
+  FaRegCreditCard,
+  FaMoneyBillWave,
+} from "react-icons/fa";
 
 export default function CheckoutPage() {
   const { cartItems, cartTotal, clearCart } = useCart();
@@ -80,384 +88,321 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="bg-[#1F1F1F] min-h-screen">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 min-h-screen">
-          {/* Left Side - Checkout Form */}
-          <div className="bg-[#1F1F1F] p-4 md:p-6 lg:p-12 order-2 lg:order-1">
-            {/* Logo */}
-            <div className="mb-6 md:mb-8">
-              <h1 className="text-xl md:text-2xl font-bold text-white italic">
-                Frangnance Store
-              </h1>
-            </div>
+    <div className="bg-[#1F1F1F] min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto bg-[#2A2A2A] rounded-lg shadow-lg overflow-hidden">
+        <form
+          onSubmit={handlePlaceOrder}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6"
+        >
+          {/* Left: Customer Details & Payment */}
+          <div className="space-y-6">
+            {/* Title */}
+            <h2 className="text-2xl font-semibold text-white mb-4">Checkout</h2>
 
-            <form onSubmit={handlePlaceOrder} className="space-y-8">
-              {/* Contact Information */}
-              <div>
-                <h3 className="text-lg font-semibold text-white mb-6">
-                  Contact & Shipping Information
-                </h3>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Customer Details */}
+            <section>
+              <h3 className="text-lg font-medium text-white mb-4">
+                Customer Details
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Email address"
+                  className="p-3 bg-[#1F1F1F] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
+                  required
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  placeholder="Phone number"
+                  className="p-3 bg-[#1F1F1F] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
+                  required
+                />
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  placeholder="First name"
+                  className="p-3 bg-[#1F1F1F] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
+                  required
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  placeholder="Last name"
+                  className="p-3 bg-[#1F1F1F] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
+                  required
+                />
+                <input
+                  type="text"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  placeholder="Street address"
+                  className="sm:col-span-2 p-3 bg-[#1F1F1F] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
+                  required
+                />
+                <input
+                  type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleInputChange}
+                  placeholder="City"
+                  className="p-3 bg-[#1F1F1F] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
+                  required
+                />
+                <input
+                  type="text"
+                  name="zipCode"
+                  value={formData.zipCode}
+                  onChange={handleInputChange}
+                  placeholder="ZIP / Postal code"
+                  className="p-3 bg-[#1F1F1F] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
+                  required
+                />
+              </div>
+            </section>
+
+            {/* Payment Method */}
+            <section>
+              <h3 className="text-lg font-medium text-white mb-4">
+                Payment Method
+              </h3>
+              <div className="flex gap-3 flex-wrap">
+                {/* COD */}
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("cod")}
+                  className={` text-sm flex-1 min-w-[120px] flex items-center justify-center gap-2 p-3 rounded-md border  transition-colors duration-200  ${
+                    paymentMethod === "cod"
+                      ? "bg-[#DAB060] border-[#DAB060] text-black shadow-md"
+                      : "bg-[#1F1F1F] border-gray-600 text-gray-300 hover:border-[#DAB060] hover:text-white"
+                  }`}
+                >
+                  <FaMoneyBillWave className="w-5 h-5" />
+                  Cash on Delivery
+                </button>
+
+                {/* Card */}
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("card")}
+                  className={` text-sm flex-1 min-w-[120px] flex items-center justify-center gap-2 p-3 rounded-md border  transition-colors duration-200  ${
+                    paymentMethod === "card"
+                      ? "bg-[#DAB060] border-[#DAB060] text-black shadow-md"
+                      : "bg-[#1F1F1F] border-gray-600 text-gray-300 hover:border-[#DAB060] hover:text-white"
+                  }`}
+                >
+                  <FaRegCreditCard className="w-5 h-5" />
+                  Card Payment
+                </button>
+
+                {/* JazzCash */}
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("jazzcash")}
+                  className={`text-sm flex-1 min-w-[120px] flex items-center justify-center gap-2 p-3 rounded-md border  transition-colors duration-200  ${
+                    paymentMethod === "jazzcash"
+                      ? "bg-[#DAB060] border-[#DAB060] text-black shadow-md"
+                      : "bg-[#1F1F1F] border-gray-600 text-gray-300 hover:border-[#DAB060] hover:text-white"
+                  }`}
+                >
+                  <FaMoneyBillWaveAlt className="w-5 h-5" />
+                  JazzCash
+                </button>
+
+                {/* EasyPaisa */}
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("easypaisa")}
+                  className={` text-sm flex-1 min-w-[120px] flex items-center justify-center gap-2 p-3 rounded-md border  transition-colors duration-200  ${
+                    paymentMethod === "easypaisa"
+                      ? "bg-[#DAB060] border-[#DAB060] text-black shadow-md"
+                      : "bg-[#1F1F1F] border-gray-600 text-gray-300 hover:border-[#DAB060] hover:text-white"
+                  }`}
+                >
+                  <FaMobileAlt className="w-5 h-5" />
+                  EasyPaisa
+                </button>
+              </div>
+
+              {/* Payment Details */}
+              <div className="mt-6 bg-[#1F1F1F] p-4 rounded-md">
+                {/* COD - no extra inputs */}
+                {paymentMethod === "cod" && (
+                  <p className="text-gray-400 text-sm">
+                    You will pay when your order is delivered.
+                  </p>
+                )}
+
+                {/* Card Payment Inputs */}
+                {paymentMethod === "card" && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
+                      type="text"
+                      name="cardNumber"
+                      value={formData.cardNumber}
                       onChange={handleInputChange}
-                      placeholder="Email address"
-                      className="p-4 bg-[#2A2A2A] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
+                      placeholder="Card Number"
+                      className="p-3 bg-[#2A2A2A] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
                       required
                     />
                     <input
-                      type="tel"
+                      type="text"
+                      name="cardName"
+                      value={formData.cardName}
+                      onChange={handleInputChange}
+                      placeholder="Name on Card"
+                      className="p-3 bg-[#2A2A2A] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
+                      required
+                    />
+                    <input
+                      type="text"
+                      name="expiryDate"
+                      value={formData.expiryDate}
+                      onChange={handleInputChange}
+                      placeholder="MM/YY"
+                      className="p-3 bg-[#2A2A2A] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
+                      required
+                    />
+                    <input
+                      type="text"
+                      name="cvc"
+                      value={formData.cvc}
+                      onChange={handleInputChange}
+                      placeholder="CVC"
+                      className="p-3 bg-[#2A2A2A] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
+                      required
+                    />
+                  </div>
+                )}
+
+                {/* JazzCash & EasyPaisa */}
+                {(paymentMethod === "jazzcash" ||
+                  paymentMethod === "easypaisa") && (
+                  <div>
+                    <p className="text-gray-400 text-sm mb-2">
+                      You will be redirected to{" "}
+                      {paymentMethod === "jazzcash" ? "JazzCash" : "EasyPaisa"}{" "}
+                      payment gateway after placing the order.
+                    </p>
+                    <input
+                      type="text"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      placeholder="Phone number"
-                      className="p-4 bg-[#2A2A2A] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
+                      placeholder="Mobile Number linked to wallet"
+                      className="p-3 bg-[#2A2A2A] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
                       required
                     />
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      placeholder="First name"
-                      className="p-4 bg-[#2A2A2A] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
-                      required
-                    />
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      placeholder="Last name"
-                      className="p-4 bg-[#2A2A2A] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
-                      required
-                    />
-                  </div>
-
-                  <input
-                    type="text"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    placeholder="Street address"
-                    className="w-full p-4 bg-[#2A2A2A] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
-                    required
-                  />
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <input
-                      type="text"
-                      name="city"
-                      value={formData.city}
-                      onChange={handleInputChange}
-                      placeholder="City"
-                      className="p-4 bg-[#2A2A2A] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
-                      required
-                    />
-                    <input
-                      type="text"
-                      name="zipCode"
-                      value={formData.zipCode}
-                      onChange={handleInputChange}
-                      placeholder="ZIP / Postal code"
-                      className="p-4 bg-[#2A2A2A] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Payment Method Selection */}
-              <div>
-                <h3 className="text-lg font-semibold text-white mb-6">
-                  Payment Method
-                </h3>
-
-                {/* Payment Method Tabs */}
-                <div className="grid grid-cols-3 gap-2 mb-6 p-1 bg-[#2A2A2A] rounded-lg">
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod("card")}
-                    className={`p-3 rounded-md transition-all duration-200 flex items-center justify-center gap-2 ${
-                      paymentMethod === "card"
-                        ? "bg-[#DAB060] text-black shadow-lg"
-                        : "text-gray-400 hover:text-white hover:bg-[#3A3A3A]"
-                    }`}
-                  >
-                    <FaCreditCard className="h-4 w-4" />
-                    <span className="text-sm font-medium">Card</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod("bank")}
-                    className={`p-3 rounded-md transition-all duration-200 flex items-center justify-center gap-2 ${
-                      paymentMethod === "bank"
-                        ? "bg-[#DAB060] text-black shadow-lg"
-                        : "text-gray-400 hover:text-white hover:bg-[#3A3A3A]"
-                    }`}
-                  >
-                    <FaUniversity className="h-4 w-4" />
-                    <span className="text-sm font-medium">Bank</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod("mobile")}
-                    className={`p-3 rounded-md transition-all duration-200 flex items-center justify-center gap-2 ${
-                      paymentMethod === "mobile"
-                        ? "bg-[#DAB060] text-black shadow-lg"
-                        : "text-gray-400 hover:text-white hover:bg-[#3A3A3A]"
-                    }`}
-                  >
-                    <FaMobile className="h-4 w-4" />
-                    <span className="text-sm font-medium">Mobile</span>
-                  </button>
-                </div>
-
-                {/* Payment Fields */}
-                <div className="bg-[#2A2A2A] p-6 rounded-lg">
-                  {/* Card Payment Fields */}
-                  {paymentMethod === "card" && (
-                    <div className="space-y-4">
-                      <input
-                        type="text"
-                        name="cardNumber"
-                        value={formData.cardNumber}
-                        onChange={handleInputChange}
-                        placeholder="1234 5678 9012 3456"
-                        className="w-full p-4 bg-[#1F1F1F] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
-                        required
-                      />
-                      <input
-                        type="text"
-                        name="cardName"
-                        value={formData.cardName}
-                        onChange={handleInputChange}
-                        placeholder="Name on card"
-                        className="w-full p-4 bg-[#1F1F1F] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
-                        required
-                      />
-                      <div className="grid grid-cols-2 gap-4">
-                        <input
-                          type="text"
-                          name="expiryDate"
-                          value={formData.expiryDate}
-                          onChange={handleInputChange}
-                          placeholder="MM/YY"
-                          className="p-4 bg-[#1F1F1F] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
-                          required
-                        />
-                        <input
-                          type="text"
-                          name="cvc"
-                          value={formData.cvc}
-                          onChange={handleInputChange}
-                          placeholder="CVC"
-                          className="p-4 bg-[#1F1F1F] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
-                          required
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Bank Payment Fields */}
-                  {paymentMethod === "bank" && (
-                    <div className="space-y-4">
-                      <div className="text-center mb-4">
-                        <h4 className="text-white font-medium mb-2">
-                          Bank Transfer Details
-                        </h4>
-                        <p className="text-gray-400 text-sm">
-                          Enter your bank account information
-                        </p>
-                      </div>
-                      <input
-                        type="text"
-                        name="bankAccount"
-                        value={formData.bankAccount}
-                        onChange={handleInputChange}
-                        placeholder="Account number"
-                        className="w-full p-4 bg-[#1F1F1F] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
-                        required
-                      />
-                      <input
-                        type="text"
-                        name="routingNumber"
-                        value={formData.routingNumber}
-                        onChange={handleInputChange}
-                        placeholder="Routing number / IBAN"
-                        className="w-full p-4 bg-[#1F1F1F] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
-                        required
-                      />
-                    </div>
-                  )}
-
-                  {/* Mobile Payment Options */}
-                  {paymentMethod === "mobile" && (
-                    <div className="space-y-4">
-                      <div className="text-center mb-4">
-                        <h4 className="text-white font-medium mb-2">
-                          Mobile Payment
-                        </h4>
-                        <p className="text-gray-400 text-sm">
-                          Choose your preferred mobile payment method
-                        </p>
-                      </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <button
-                          type="button"
-                          className="p-4 bg-[#1F1F1F] border-2 border-gray-600 rounded-lg text-white hover:border-[#DAB060] hover:bg-[#2A2A2A] transition-all duration-200 text-center"
-                        >
-                          <div className="font-medium">JazzCash</div>
-                          <div className="text-xs text-gray-400 mt-1">
-                            Mobile Wallet
-                          </div>
-                        </button>
-                        <button
-                          type="button"
-                          className="p-4 bg-[#1F1F1F] border-2 border-gray-600 rounded-lg text-white hover:border-[#DAB060] hover:bg-[#2A2A2A] transition-all duration-200 text-center"
-                        >
-                          <div className="font-medium">EasyPaisa</div>
-                          <div className="text-xs text-gray-400 mt-1">
-                            Mobile Wallet
-                          </div>
-                        </button>
-                        <button
-                          type="button"
-                          className="p-4 bg-[#0070BA] border-2 border-[#0070BA] rounded-lg text-white hover:bg-[#005EA6] transition-all duration-200 text-center"
-                        >
-                          <div className="font-medium">PayPal</div>
-                          <div className="text-xs text-blue-200 mt-1">
-                            Digital Wallet
-                          </div>
-                        </button>
-                        <button
-                          type="button"
-                          className="p-4 bg-[#1F1F1F] border-2 border-gray-600 rounded-lg text-white hover:border-[#DAB060] hover:bg-[#2A2A2A] transition-all duration-200 text-center"
-                        >
-                          <div className="font-medium">SadaPay</div>
-                          <div className="text-xs text-gray-400 mt-1">
-                            Digital Bank
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Place Order Button */}
-              <button
-                type="submit"
-                disabled={isProcessing}
-                className="w-full bg-[#DAB060] hover:bg-[#C28E4D] disabled:bg-gray-600 disabled:cursor-not-allowed text-black font-semibold py-4 px-6 rounded-lg transition-all duration-200 text-lg shadow-lg hover:shadow-xl"
-              >
-                {isProcessing ? (
-                  <div className="flex items-center justify-center gap-3">
-                    <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-                    Processing Order...
-                  </div>
-                ) : (
-                  `PLACE ORDER - $${cartTotal.total.toFixed(2)}`
                 )}
-              </button>
-            </form>
-          </div>
-
-          {/* Right Side - Order Summary */}
-          <div className="bg-[#2A2A2A] p-4 md:p-6 lg:p-12 border-b lg:border-b-0 lg:border-l border-gray-700 order-1 lg:order-2">
-            <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-white">
-                Order Summary
-              </h2>
-
-              {/* Cart Items */}
-              <div className="space-y-4">
-                {cartItems.map((item) => (
-                  <div
-                    key={item.product._id || item.product.id}
-                    className="flex items-center gap-4 p-4 bg-[#1F1F1F] rounded-lg"
-                  >
-                    <div className="relative">
-                      <div className="w-16 h-16 bg-gray-700 rounded-lg overflow-hidden">
-                        <Image
-                          src={item.product.image || "/placeholder.svg"}
-                          alt={item.product.name}
-                          width={64}
-                          height={64}
-                          className="object-cover w-full h-full"
-                        />
-                      </div>
-                      <span className="absolute -top-2 -right-2 bg-[#DAB060] text-black text-xs rounded-full w-6 h-6 flex items-center justify-center font-medium">
-                        {item.quantity}
-                      </span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-white font-medium text-sm truncate">
-                        {item.product.name}
-                      </h3>
-                      <p className="text-gray-400 text-xs mt-1">
-                        Qty: {item.quantity}
-                      </p>
-                    </div>
-                    <div className="text-white font-semibold">
-                      ${(item.product.price * item.quantity).toFixed(2)}
-                    </div>
-                  </div>
-                ))}
               </div>
+            </section>
 
-              {/* Discount Code */}
-              <div className="flex flex-col sm:flex-row gap-3">
+            {/* Discount Code */}
+            <section className="pt-2">
+              <div className="flex flex-col md:flex-row gap-3">
                 <input
                   type="text"
                   value={discountCode}
                   onChange={(e) => setDiscountCode(e.target.value)}
                   placeholder="Discount code"
-                  className="w-full sm:flex-1 p-3 bg-[#1F1F1F] border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-2 focus:ring-[#DAB060] focus:ring-opacity-50 transition-all"
+                  className="w-full md:flex-1 p-2 bg-[#1F1F1F] border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-[#DAB060] focus:ring-1 focus:ring-[#DAB060]"
                 />
                 <button
                   type="button"
                   onClick={handleApplyDiscount}
-                  className="w-full sm:w-auto bg-[#DAB060] hover:bg-[#C28E4D] text-black px-6 py-3 rounded-lg font-medium transition-all duration-200"
+                  className="bg-[#DAB060] hover:bg-[#C28E4D] text-black px-4 py-1 rounded-md transition-colors duration-200 w-full md:w-auto"
                 >
-                  APPLY
+                  Apply
                 </button>
               </div>
+            </section>
 
-              {/* Order Summary */}
-              <div className="space-y-4 pt-4 border-t border-gray-600">
-                <div className="flex justify-between text-white">
-                  <span>Subtotal</span>
-                  <span className="font-medium">
-                    ${cartTotal.subtotal.toFixed(2)}
-                  </span>
+            {/* Place Order */}
+            <button
+              type="submit"
+              disabled={isProcessing}
+              className="w-full mt-6 bg-[#DAB060] hover:bg-[#C28E4D] disabled:bg-gray-600 disabled:cursor-not-allowed text-black  py-2 rounded-md text-lg shadow-md hover:shadow-lg transition-all duration-200"
+            >
+              {isProcessing ? (
+                <div className="flex items-center justify-center gap-3">
+                  <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                  Processing Order...
                 </div>
-
-                <div className="flex justify-between text-white">
-                  <span>Shipping</span>
-                  <span className="text-green-400 font-medium">Free</span>
-                </div>
-
-                <div className="flex justify-between items-center text-white text-xl font-bold pt-4 border-t border-gray-600">
-                  <span>Total</span>
-                  <div className="text-right">
-                    <div className="text-xs text-gray-400 font-normal">USD</div>
-                    <div className="text-[#DAB060]">
-                      ${cartTotal.total.toFixed(2)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              ) : (
+                `Place Order - $${cartTotal.total.toFixed(2)}`
+              )}
+            </button>
           </div>
+
+          {/* Right: Order Summary */}
+       <aside className="bg-[#1F1F1F] p-4 sm:p-6 rounded-lg">
+  <h3 className="text-xl font-semibold text-white mb-4 sm:mb-6">
+    Order Summary
+  </h3>
+
+  <div className="space-y-4 max-h-[calc(100vh-200px)] overflow-y-auto pr-1">
+    {cartItems.map((item) => (
+      <div
+        key={item.product._id || item.product.id}
+        className="flex items-start sm:items-center gap-3 bg-[#2A2A2A] p-3 rounded-md"
+      >
+        <div className="relative w-16 h-16 rounded-md overflow-hidden bg-gray-700 flex-shrink-0">
+          <Image
+            src={item.product.image || "/placeholder.svg"}
+            alt={item.product.name}
+            fill
+            style={{ objectFit: "cover" }}
+            priority={false}
+          />
+          <span className="absolute -top-1 -right-1 bg-[#DAB060] text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">
+            {item.quantity}
+          </span>
         </div>
+
+        <div className="flex-1 min-w-0">
+          <h4 className="text-white font-medium text-sm whitespace-normal break-words">
+            {item.product.name}
+          </h4>
+          <p className="text-gray-400 text-xs mt-0.5">
+            Qty: {item.quantity}
+          </p>
+        </div>
+
+        <div className="text-white font-semibold text-sm sm:text-base whitespace-nowrap">
+          ${(item.product.price * item.quantity).toFixed(2)}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div className="border-t border-gray-700 mt-6 pt-4 space-y-2 text-white">
+    <div className="flex justify-between text-sm">
+      <span>Subtotal</span>
+      <span>${cartTotal.subtotal.toFixed(2)}</span>
+    </div>
+    <div className="flex justify-between text-sm">
+      <span>Shipping</span>
+      <span className="text-green-400 font-medium">Free</span>
+    </div>
+    <div className="flex justify-between items-center text-lg font-bold pt-3 border-t border-gray-700">
+      <span>Total</span>
+      <span className="text-[#DAB060]">${cartTotal.total.toFixed(2)}</span>
+    </div>
+  </div>
+</aside>
+
+        </form>
       </div>
     </div>
   );
