@@ -63,14 +63,17 @@ export default function HomePage() {
     <div>
       {/* SEO Meta Tags */}
       <Head>
-        <title>Scentmire | Premium Perfumes, Attars & Arabic Collection</title>
+        <title>
+          Scentmire | Luxury Perfume, Authentic Attars, Arabic Fragrances &
+          Gift Boxes
+        </title>
         <meta
           name="description"
-          content="Discover Scentmire – your destination for luxury perfumes, authentic attars, and exclusive Arabic fragrance collections. Perfect for gifting or personal indulgence."
+          content="Scentmire offers a premium range of luxury perfumes, natural attars, Arabic fragrances, and customizable gift boxes. Discover elegant scents for men and women."
         />
         <meta
           name="keywords"
-          content="Scentmire, Perfume, Attar, Arabic Collection, Gift Boxes, Luxury Fragrances, Oud, Musk, Customize Gift Box"
+          content="luxury perfumes, attars, Arabic perfumes, oud, musk, perfume gifts, premium fragrances, scentmire, perfume for men, perfume for women, customize gift box"
         />
         <meta name="author" content="Scentmire" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -78,8 +81,57 @@ export default function HomePage() {
           name="google-site-verification"
           content="vyFecmJWsxcqLhyu_lQR97u05bdYf_JNwWEMIhG2uAI"
         />
+
+        {/* Open Graph Meta Tags */}
+        <meta
+          property="og:title"
+          content="Scentmire | Luxury Perfumes & Authentic Fragrance Collection"
+        />
+        <meta
+          property="og:description"
+          content="Discover high-end perfumes, attars, Arabic scents & custom gift boxes. Scentmire brings elegance and exclusivity to fragrance lovers."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://scentmire.vercel.app/" />
+        <meta
+          property="og:image"
+          content="https://scentmire.vercel.app/_next/image?url=%2Fuploads%2F1753171803769-883b3e6f33d87c83226418b1488f5a20b83fb9fc.png&w=1920&q=75"
+        />
+
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Scentmire | Premium Perfume & Fragrance Collection"
+        />
+        <meta
+          name="twitter:description"
+          content="Explore our curated luxury perfumes, Arabic attars, and elegant gift boxes. Only at Scentmire."
+        />
+        <meta
+          name="twitter:image"
+          content="https://scentmire.vercel.app/_next/image?url=%2Fuploads%2F1753171803769-883b3e6f33d87c83226418b1488f5a20b83fb9fc.png&w=1920&q=75"
+        />
+
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" />
+
+        {/* Logo Schema Markup */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Scentmire",
+              url: "https://scentmire.vercel.app",
+              logo: "https://scentmire.vercel.app/_next/image?url=%2Fuploads%2F1753171803769-883b3e6f33d87c83226418b1488f5a20b83fb9fc.png&w=1920&q=75g",
+            }),
+          }}
+        />
       </Head>
 
+      {/* Sections */}
       <HeroSection />
 
       <div className="mt-12">
@@ -90,6 +142,7 @@ export default function HomePage() {
           />
         )}
       </div>
+
       <div className="-mt-8 md:-mt-2">
         {attarCategory && (
           <ProductCategoriesSection
@@ -98,20 +151,25 @@ export default function HomePage() {
           />
         )}
       </div>
+
       <ProductCarouselSection />
+
       {arabicCollectionCategory && (
         <ProductCategoriesSection
           categories={[arabicCollectionCategory]}
           showLimit={true}
         />
       )}
+
       <OurCollections />
+
       {giftBoxCategory && (
         <ProductCategoriesSection
           categories={[giftBoxCategory]}
           showLimit={true}
         />
       )}
+
       <Reviews />
       <FAQ />
       <Contact />
