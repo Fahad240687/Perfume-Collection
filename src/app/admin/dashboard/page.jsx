@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"; // Import useCallback
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState([]);
@@ -10,6 +11,7 @@ export default function AdminDashboard() {
   const [selectedCategory, setSelectedCategory] = useState("all"); // State for category filter
   const [searchQuery, setSearchQuery] = useState(""); // State for search query input
   const [currentSearchTerm, setCurrentSearchTerm] = useState(""); // State to trigger actual search
+const router = useRouter();
 
   // Memoize fetchProducts to prevent unnecessary re-renders and re-fetches
   const fetchProducts = useCallback(async () => {
@@ -99,6 +101,11 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout");
+    router.push("/admin/login");
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -154,6 +161,12 @@ export default function AdminDashboard() {
             >
               Search
             </button>
+             <button
+      onClick={handleLogout}
+      className="text-white bg-red-500 px-4 py-2 rounded hover:bg-red-600"
+    >
+      Logout
+    </button>
           </div>
         </form>
 
