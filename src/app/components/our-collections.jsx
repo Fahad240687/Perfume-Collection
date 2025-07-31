@@ -243,17 +243,21 @@ export default function GalleryPage() {
         </div>
 
         {/* Lightbox */}
-        <div
-          className="lightbox"
-          onClick={(e) => {
-            if (e.target.classList.contains("lightbox")) closeLightbox();
-          }}
-        >
-          <span className="close" onClick={closeLightbox}>
-            &times;
-          </span>
-          <img src={lightboxSrc} alt="Lightbox" className="lightbox-image" />
-        </div>
+     {/* Lightbox */}
+<div
+  className="lightbox"
+  onClick={(e) => {
+    if (e.target.classList.contains("lightbox")) closeLightbox();
+  }}
+>
+  <span className="close" onClick={closeLightbox}>
+    &times;
+  </span>
+  {lightboxSrc && (
+    <img src={lightboxSrc} alt="Lightbox" className="lightbox-image" />
+  )}
+</div>
+
       </section>
     </>
   );

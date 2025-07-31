@@ -44,26 +44,32 @@ const router = useRouter();
   }, [fetchProducts]); // Dependency on memoized fetchProducts
 
   // Fetch categories once on component mount
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch("/api/categories");
-        const data = await response.json();
-        if (data.success) {
-          const formattedCategories = data.categories.map((cat) => ({
-            ...cat,
-            name:
-              cat.name.charAt(0).toUpperCase() +
-              cat.name.slice(1).replace(/-/g, " "),
-          }));
-          setCategories(formattedCategories);
-        }
-      } catch (error) {
-        console.error("Error fetching categories:", error);
+useEffect(() => {
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch("/api/categories");
+      const data = await response.json();
+
+      if (data.success && Array.isArray(data.categories)) {
+        const formattedCategories = data.categories.map((cat) => ({
+          ...cat,
+          name:
+            cat.name.charAt(0).toUpperCase() +
+            cat.name.slice(1).replace(/-/g, " "),
+        }));
+        setCategories(formattedCategories);
+      } else {
+        console.error("Categories not found or invalid:", data);
+        setCategories([]); // fallback to empty list
       }
-    };
-    fetchCategories();
-  }, []);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  fetchCategories();
+}, []);
+
 
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value); // Update input value immediately

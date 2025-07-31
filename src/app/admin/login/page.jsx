@@ -10,16 +10,16 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  // 🚫 Redirect if already logged in
+  // Redirect if already logged in by checking cookie on client
   useEffect(() => {
-    const token = document.cookie
+    const tokenCookie = document.cookie
       .split("; ")
       .find((row) => row.startsWith("admin-token="));
 
-    if (token) {
+    if (tokenCookie) {
       router.replace("/admin/dashboard");
     }
-  }, []);
+  }, [router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,26 +29,25 @@ export default function LoginPage() {
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password }),
       });
 
       const data = await response.json();
 
-      if (data.success) {
+      if (response.ok && data.success) {
+        // Login success - redirect to dashboard
         router.push("/admin/dashboard");
       } else {
+        // Show error message from server or generic
         setError(data.error || "Login failed");
       }
-    } catch (error) {
+    } catch (err) {
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   };
-
 
   return (
     <div className="min-h-screen flex">
@@ -64,22 +63,18 @@ export default function LoginPage() {
                 <div className="w-3 h-3 bg-amber-500 rounded-sm"></div>
                 <div className="w-3 h-3 bg-amber-600 rounded-sm"></div>
               </div>
-              <span className="text-xl font-bold text-gray-900">
-                FRAGRANCE
-              </span>
+              <span className="text-xl font-bold text-gray-900">FRAGRANCE</span>
             </div>
           </div>
 
           {/* Welcome Text */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Welcome back
-            </h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back</h1>
             <p className="text-gray-600">Please enter your admin password</p>
           </div>
 
           {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6" noValidate>
             {/* Password Input */}
             <div>
               <label
@@ -96,10 +91,11 @@ export default function LoginPage() {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
                 placeholder="Enter your password"
                 required
+                autoComplete="current-password"
               />
             </div>
 
-            {/* Error */}
+            {/* Error Message */}
             {error && (
               <div className="text-red-500 text-sm text-center bg-red-50 py-2 px-4 rounded-lg">
                 {error}
@@ -121,7 +117,6 @@ export default function LoginPage() {
                 "Sign in"
               )}
             </button>
-            
           </form>
         </div>
       </div>

@@ -45,60 +45,53 @@ export default function AddProduct() {
     }))
   }
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0]
-    if (!file) return
+ const handleImageUpload = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
 
-    console.log("File selected:", file.name, file.size, file.type)
-
-    // Validate file type
-    if (!file.type.startsWith("image/")) {
-      alert("Please select an image file")
-      return
-    }
-
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      alert("File size should be less than 5MB")
-      return
-    }
-
-    setImageUploading(true)
-
-    try {
-      const uploadFormData = new FormData()
-      uploadFormData.append("file", file)
-
-      console.log("Uploading file...")
-
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: uploadFormData,
-      })
-
-      console.log("Upload response status:", response.status)
-
-      const data = await response.json()
-      console.log("Upload response data:", data)
-
-      if (data.success) {
-        setFormData((prev) => ({
-          ...prev,
-          image: data.imageUrl,
-        }))
-        setImagePreview(data.imageUrl)
-        console.log("Image uploaded successfully:", data.imageUrl)
-      } else {
-        console.error("Upload failed:", data.error)
-        alert("Image upload failed: " + data.error)
-      }
-    } catch (error) {
-      console.error("Error uploading image:", error)
-      alert("Error uploading image: " + error.message)
-    } finally {
-      setImageUploading(false)
-    }
+  // Validate file type
+  if (!file.type.startsWith("image/")) {
+    alert("Please select a valid image file.");
+    return;
   }
+
+  // Validate file size (max 5MB)
+  if (file.size > 5 * 1024 * 1024) {
+    alert("File size should be less than 5MB.");
+    return;
+  }
+
+  setImageUploading(true);
+
+  try {
+    const uploadFormData = new FormData();
+    uploadFormData.append("file", file);
+
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: uploadFormData,
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setFormData((prev) => ({
+        ...prev,
+        image: data.imageUrl,
+      }));
+      setImagePreview(data.imageUrl);
+    } else {
+      console.error("Upload failed:", data.error);
+      alert("Image upload failed: " + data.error);
+    }
+  } catch (error) {
+    console.error("Error uploading image:", error);
+    alert("Image upload failed: " + error.message);
+  } finally {
+    setImageUploading(false);
+  }
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
