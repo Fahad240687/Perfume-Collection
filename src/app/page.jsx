@@ -64,8 +64,8 @@ export default function HomePage() {
       {/* SEO Meta Tags */}
       <Head>
         <title>
-          Scentmire | Luxury Perfume, Authentic Attars, Arabic Fragrances &
-          Gift Boxes
+          Scentmire | Luxury Perfume, Authentic Attars, Arabic Fragrances & Gift
+          Boxes
         </title>
         <meta
           name="description"
@@ -155,10 +155,23 @@ export default function HomePage() {
       <ProductCarouselSection />
 
       {arabicCollectionCategory && (
-        <ProductCategoriesSection
-          categories={[arabicCollectionCategory]}
-          showLimit={true}
-        />
+        <>
+          {/* Internal SEO link just above the section */}
+          <div className="text-center my-8">
+            <a
+              href="/shop/arabic-collection"
+              className="text-lg font-medium text-[#DAB060] hover:underline"
+            >
+              Explore our Arabic Perfume Collection
+            </a>
+          </div>
+
+          {/* Arabic Collection section */}
+          <ProductCategoriesSection
+            categories={[arabicCollectionCategory]}
+            showLimit={true}
+          />
+        </>
       )}
 
       <OurCollections />
